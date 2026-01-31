@@ -1,0 +1,73 @@
+{
+    "FinalBossPhase" : 
+    [
+        {
+            "Name": "Valarth_00",
+            "isChoice": false,
+            "Texts": 
+            [
+                "¿¡QUIEN VA?!"
+            ],
+            "NextPrompts": 
+            [
+                "Amara_01"
+            ],
+            "Tags": ["Start"]
+        },
+        {
+            "Name": "Amara_01",
+            "isChoice": true,
+            "Texts": 
+            [
+                "He venido porque sé que puedo ayudarte",
+                "He venido porque me han dicho que estás fatal de la cabeza"
+            ],
+            "choiceOutcomes": 
+            [
+                true,
+                false
+            ],
+            "NextPrompts": 
+            [
+                "Valarth_01_Good",
+                "Valarth_01_Bad",
+                "Valarth_01_Bad_Object"
+            ]
+        },
+        {
+            "Name": "Valarth_01_Good",
+            "isChoice": false,
+            "Texts": 
+            [
+                "¿Ayudarme con qué exactamente? ...",
+                "El puesto de oficinista está abierto sólo para Matamozcaz cualificados"
+            ],
+            "NextPrompts": 
+            [
+                "Amara_02"
+            ]
+        },
+        {
+            "Name": "Valarth_01_Bad",
+            "isChoice": false,
+            "Texts": 
+            [
+                "¡CÓMO TE ATREVES!",
+                "Mide bien tus proximas palabras humana, o acabaras formando parte del menú del dia"
+            ]
+        },
+        {
+            "Name": "Valarth_01_Bad_Object",
+            "isChoice": false,
+            "Texts": 
+            [
+                "APARTA TU BASURA HUMANA DE MI CARA"
+            ],
+            "choiceOutcomes": [],
+            "NextPrompts": 
+            [
+                "Amara_01"
+            ]
+        }
+    ]
+}
