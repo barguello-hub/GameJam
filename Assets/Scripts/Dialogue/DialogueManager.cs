@@ -201,7 +201,6 @@ public class DialogueManager : MonoBehaviour
         else
         {
             dialogueLayer.SetActive(true);
-            // inventoryLayer.SetActive(false);
             TextMeshProUGUI dialogue_text = dialogueLayer.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             if(currentPrompt.Texts.Count >= currentPromptBreak+1)
             {
@@ -273,32 +272,54 @@ public class DialogueManager : MonoBehaviour
         // Invoke(nameof(GetNextPrompt),2.0f);
     }
 
+    public void GetFirstPrompt()
+    {
+        UpdateDialogueVariables(currentPhaseName);
+        foreach(DialoguePrompt prompt in  currentPhase)
+        {
+            foreach(string tag in prompt.Tags)
+            {
+                if(string.Equals(tag, "start", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    currentPrompt = prompt;
+                    currentPromptName = currentPrompt.Name;
+                    UpdateText();
+                    waitForInput = true;
+                    
+                    //DEBUG
+                    // Invoke(nameof(GetNextPrompt),2.0f);
+                    break;
+                }
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (isInDialogue)
-        {
-            if(currentPrompt == null)
-            {                
-                UpdateDialogueVariables(currentPhaseName);
-                foreach(DialoguePrompt prompt in  currentPhase)
-                {
-                    foreach(string tag in prompt.Tags)
-                    {
-                        if(string.Equals(tag, "start", System.StringComparison.OrdinalIgnoreCase))
-                        {
-                            currentPrompt = prompt;
-                            currentPromptName = currentPrompt.Name;
-                            UpdateText();
-                            waitForInput = true;
+        // if (isInDialogue)
+        // {
+        //     if(currentPrompt == null)
+        //     {                
+        //         UpdateDialogueVariables(currentPhaseName);
+        //         foreach(DialoguePrompt prompt in  currentPhase)
+        //         {
+        //             foreach(string tag in prompt.Tags)
+        //             {
+        //                 if(string.Equals(tag, "start", System.StringComparison.OrdinalIgnoreCase))
+        //                 {
+        //                     currentPrompt = prompt;
+        //                     currentPromptName = currentPrompt.Name;
+        //                     UpdateText();
+        //                     waitForInput = true;
                             
-                            //DEBUG
-                            // Invoke(nameof(GetNextPrompt),2.0f);
-                            break;
-                        }
-                    }
-                }
-            }
-        }   
+        //                     //DEBUG
+        //                     // Invoke(nameof(GetNextPrompt),2.0f);
+        //                     break;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }   
     }
 }

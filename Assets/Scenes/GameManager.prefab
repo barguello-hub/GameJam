@@ -51,4 +51,16 @@ MonoBehaviour:
   InventoryLayer: {fileID: 0}
   InitialAmaraDetermination: 5
   currentAmaraDetermination: 0
-  AmaraInventory: []
+  AmaraInventory:
+  - name: Oro
+    object_sprite: {fileID: -5122786757355938225, guid: 6bcf1de9d56ba40a1aca9e1a860a69df, type: 3}
+    count: 0
+  - name: Vestido Rojo
+    object_sprite: {fileID: -5122786757355938225, guid: 6bcf1de9d56ba40a1aca9e1a860a69df, type: 3}
+    count: 0
+  - name: "Poci\xF3n"
+    object_sprite: {fileID: -5122786757355938225, guid: 6bcf1de9d56ba40a1aca9e1a860a69df, type: 3}
+    count: 0
+  - name: Palito de Regaliz
+    object_sprite: {fileID: -5122786757355938225, guid: 6bcf1de9d56ba40a1aca9e1a860a69df, type: 3}
+    count: 0

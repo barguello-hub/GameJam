@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 [Serializable]
 public class InventoryPair
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
         dialogueManager.isInDialogue = true;
         dialogueManager.currentPhaseName = PhaseName;
         dialogueManager.currentPrompt = null;
+        dialogueManager.GetFirstPrompt();
         currentEnemyAnger = 0;
         isInBattle = true;
         UpdateUI();
@@ -76,23 +78,29 @@ public class GameManager : MonoBehaviour
 
     public void ToggleInventory()
     {   
-        InventoryLayer.transform.GetChild(1).gameObject.SetActive(!InventoryLayer.transform.GetChild(1).gameObject.activeSelf);
-        // Transform[] children = inventoryLayer.transform.GetChild(0).GetComponentsInChildren<Transform>(true);
-        // int i = 0;
-        // foreach (Transform child in children)
-        // {
-        //     child.GetComponent<Image>().sprite = null;
-        //     if(GameManager.Instance.AmaraInventory.Count >= i+1)
-        //     {
-        //         child.GetComponent<Image>().sprite = GameManager.Instance.AmaraInventory[i].object_sprite;
-        //         child.GetChild(0).GetComponent<TextMeshProUGUI>().text = GameManager.Instance.AmaraInventory[i].name;
-        //     }
-        //     else
-        //     {
-        //         break;
-        //     }
-        //     i += 1;
-        // }
+        InventoryLayer.transform.GetChild(0).gameObject.SetActive(!InventoryLayer.transform.GetChild(0).gameObject.activeSelf);
+        InventoryLayer.transform.GetChild(2).gameObject.SetActive(!InventoryLayer.transform.GetChild(2).gameObject.activeSelf);
+        Transform[] children = InventoryLayer.transform.GetChild(1).GetComponentsInChildren<Transform>(true);
+        int i = 0;
+        foreach (Transform child in InventoryLayer.transform.GetChild(2))
+        {
+            while(AmaraInventory.Count >= i+1 && AmaraInventory[i].count <= 0) i+=1;
+            if(AmaraInventory.Count >= i+1)
+            {
+                child.gameObject.SetActive(true);
+                child.GetComponent<Image>().sprite = AmaraInventory[i].object_sprite;
+                child.GetChild(0).GetComponent<TextMeshProUGUI>().text = AmaraInventory[i].name;
+                if(AmaraInventory[i].count > 1)
+                {
+                    child.GetChild(0).GetComponent<TextMeshProUGUI>().text += " x" + AmaraInventory[i].count.ToString();
+                }
+            }
+            else
+            {
+                child.gameObject.SetActive(false);
+            }
+            i += 1;
+        }
     }
 
     void UpdateUI()
@@ -115,13 +123,13 @@ public class GameManager : MonoBehaviour
         {
             TopLayer.SetActive(true);
             InventoryLayer.SetActive(false);
-            InventoryLayer.transform.GetChild(1).gameObject.SetActive(false);
+            InventoryLayer.transform.GetChild(2).gameObject.SetActive(false);
         }
         else
         {
             TopLayer.SetActive(false);
             InventoryLayer.SetActive(true);
-            InventoryLayer.transform.GetChild(1).gameObject.SetActive(false);
+            InventoryLayer.transform.GetChild(2).gameObject.SetActive(false);
         }
         
     }
@@ -167,6 +175,9 @@ public class GameManager : MonoBehaviour
         if(isInBattle)
         {
             
+        }else
+        {
+            // StartBattle("FinalBossPhase");
         }
     }
 }
