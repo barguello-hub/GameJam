@@ -1,73 +1,262 @@
 {
-    "FinalBossPhase" : 
-    [
-        {
-            "Name": "Valarth_00",
-            "isChoice": false,
-            "Texts": 
-            [
-                "¿¡QUIEN VA?!"
-            ],
-            "NextPrompts": 
-            [
-                "Amara_01"
-            ],
-            "Tags": ["Start"]
-        },
-        {
-            "Name": "Amara_01",
-            "isChoice": true,
-            "Texts": 
-            [
-                "He venido porque sé que puedo ayudarte",
-                "He venido porque me han dicho que estás fatal de la cabeza"
-            ],
-            "choiceOutcomes": 
-            [
-                true,
-                false
-            ],
-            "NextPrompts": 
-            [
-                "Valarth_01_Good",
-                "Valarth_01_Bad",
-                "Valarth_01_Bad_Object"
-            ]
-        },
-        {
-            "Name": "Valarth_01_Good",
-            "isChoice": false,
-            "Texts": 
-            [
-                "¿Ayudarme con qué exactamente? ...",
-                "El puesto de oficinista está abierto sólo para Matamozcaz cualificados"
-            ],
-            "NextPrompts": 
-            [
-                "Amara_02"
-            ]
-        },
-        {
-            "Name": "Valarth_01_Bad",
-            "isChoice": false,
-            "Texts": 
-            [
-                "¡CÓMO TE ATREVES!",
-                "Mide bien tus proximas palabras humana, o acabaras formando parte del menú del dia"
-            ]
-        },
-        {
-            "Name": "Valarth_01_Bad_Object",
-            "isChoice": false,
-            "Texts": 
-            [
-                "APARTA TU BASURA HUMANA DE MI CARA"
-            ],
-            "choiceOutcomes": [],
-            "NextPrompts": 
-            [
-                "Amara_01"
-            ]
-        }
-    ]
+  "FinalBossPhase": [
+    {
+      "Name": "Valarth_00",
+      "Texts": ["¿¡QUIEN VA?!"],
+      "NextPrompts": ["Amara_01"],
+      "Tags": ["Start"]
+    },
+
+    {
+      "Name": "Amara_01",
+      "isChoice": true,
+      "Texts": [
+        "He venido porque sé que puedo ayudarte",
+        "He venido porque me han dicho que estás fatal de la cabeza",
+        "Dar objeto"
+      ],
+      "NextPrompts": [
+        "Valarth_01_Good",
+        "Valarth_01_Bad",
+        "Valarth_01_Bad_Object"
+      ]
+    },
+
+    {
+      "Name": "Valarth_01_Good",
+      "Texts": [
+        "¿Ayudarme con qué exactamente?",
+        "El puesto de oficinista está abierto sólo para Matamozcaz cualificados"
+      ],
+      "NextPrompts": ["Amara_02"]
+    },
+
+    {
+      "Name": "Valarth_01_Bad",
+      "Texts": [
+        "¡CÓMO TE ATREVES!",
+        "Mide bien tus proximas palabras humana, o acabaras formando parte del menú del dia"
+      ]
+    },
+
+    {
+      "Name": "Valarth_01_Bad_Object",
+      "Texts": ["APARTA TU BASURA HUMANA DE MI CARA"],
+      "NextPrompts": ["Amara_01"]
+    },
+
+    {
+      "Name": "Amara_02",
+      "isChoice": true,
+      "Texts": [
+        "No quiero ser tu oficinista",
+        "He venido porque creo que estoy cualificada",
+        "Dar objeto"
+      ],
+      "NextPrompts": [
+        "Valarth_02_Neutral",
+        "Valarth_02_Bad",
+        "Valarth_02_Object"
+      ]
+    },
+
+    {
+      "Name": "Valarth_02_Neutral",
+      "Texts": [
+        "¡Pues claro que no!",
+        "Una enclenque como tú no puede llevar este imperio"
+      ],
+      "NextPrompts": ["Amara_03"]
+    },
+
+    {
+      "Name": "Valarth_02_Bad",
+      "Texts": [
+        "Estás cualificada para acabar partida por la mitad"
+      ]
+    },
+
+    {
+      "Name": "Valarth_02_Object",
+      "Texts": ["¡¿Creíste que podrías comprarme con eso?!"],
+      "NextPrompts": ["Amara_02"]
+    },
+
+    {
+      "Name": "Amara_03",
+      "isChoice": true,
+      "Texts": [
+        "Tus soldados empiezan a rumorear sobre ti. Y tu padre no estaría orgulloso.",
+        "¡Oye! No soy ninguna enclenque... Solo tengo huesos pequeños",
+        "¿Cómo que no? Dame una grapadora ahora mismo que te la lanzo",
+        "Dar objeto"
+      ],
+      "NextPrompts": [
+        "Valarth_03_Crack",
+        "Valarth_03_Bad",
+        "Valarth_03_Bad",
+        "Valarth_03_Object"
+      ]
+    },
+
+    {
+      "Name": "Valarth_03_Crack",
+      "Texts": [
+        "¡Esos bocazas!",
+        "Por los cuernos de mi padre, voy a..."
+      ],
+      "NextPrompts": ["Amara_04"]
+    },
+
+    {
+      "Name": "Valarth_03_Bad",
+      "Texts": [
+        "No me servirías ni de bufón, la verdad..."
+      ]
+    },
+
+    {
+      "Name": "Valarth_03_Object",
+      "Texts": ["APARTA TU BASURA HUMANA DE MI CARA"],
+      "NextPrompts": ["Amara_03"]
+    },
+
+    {
+      "Name": "Amara_04",
+      "isChoice": true,
+      "Texts": [
+        "Dicen que estás muy alicaída, distante, solitaria, melancólica... y los sinónimos siguen de aquí al corazón de la mazmorra, querida.",
+        "Dicen que te huelen los pies a queso de Gnoll.",
+        "Dicen que te estás volviendo blanda, que dudas...",
+        "Dar objeto"
+      ],
+      "NextPrompts": [
+        "Valarth_04_Crack",
+        "Valarth_04_Bad",
+        "Valarth_04_Defensive",
+        "Valarth_04_Object"
+      ]
+    },
+
+    {
+      "Name": "Valarth_04_Crack",
+      "Texts": [
+        "Bueno, yo, eh...",
+        "¡NO ES VERDAD! Me sentó mal aquella semana"
+      ],
+      "NextPrompts": ["Interlude_03"]
+    },
+
+    {
+      "Name": "Valarth_04_Bad",
+      "Texts": ["¡CÓMO TE ATREVES!"]
+    },
+
+    {
+      "Name": "Valarth_04_Defensive",
+      "Texts": [
+        "¿Blanda yo?",
+        "JAJAJA Estas manos te pueden partir en dos"
+      ]
+    },
+
+    {
+      "Name": "Valarth_04_Object",
+      "Texts": ["¡¿Creíste que podrías comprarme con eso?!"],
+      "NextPrompts": ["Amara_04"]
+    },
+
+    {
+      "Name": "Interlude_03",
+      "Texts": [
+        "De pequeña hice una amiga humana",
+        "Vaya, de pronto tu padre ya no es el demonio supremo",
+        "Bíceps. Pero sí, Krushkorr era una figura complicada",
+        "En fin, lo mejor que me llevé de esa época fue el odio"
+      ],
+      "NextPrompts": ["Amara_05"]
+    },
+
+    {
+      "Name": "Amara_05",
+      "isChoice": true,
+      "Texts": [
+        "Ajá! Me acabas de llamar AMIGA! Soy LA PUTA AMIGA",
+        "Entonces lo del estofado de oruga era una milonga",
+        "Creo que nuestro abrazo no es una excepción...",
+        "Dar objeto"
+      ],
+      "NextPrompts": [
+        "Valarth_05_Overreact",
+        "Valarth_05_Panic",
+        "Valarth_05_Open",
+        "Valarth_05_Object"
+      ]
+    },
+
+    {
+      "Name": "Valarth_05_Overreact",
+      "Texts": ["Te has venido muy arriba, \"guapi\""]
+    },
+
+    {
+      "Name": "Valarth_05_Panic",
+      "Texts": ["NO! No quiero más rumores!"]
+    },
+
+    {
+      "Name": "Valarth_05_Open",
+      "Texts": ["Está bien, siéntate que va para largo..."],
+      "NextPrompts": ["Interlude_04"]
+    },
+
+    {
+      "Name": "Valarth_05_Object",
+      "Texts": ["APARTA TU BASURA HUMANA DE MI CARA"],
+      "NextPrompts": ["Amara_05"]
+    },
+
+    {
+      "Name": "Interlude_04",
+      "Texts": [
+        "¿Un qué?",
+        "UN DRAGON&GABANNA ORIGINAL!!!",
+        "Pero es un D&G auténtico!"
+      ],
+      "NextPrompts": ["Amara_06"]
+    },
+
+    {
+      "Name": "Amara_06",
+      "isChoice": true,
+      "Texts": [
+        "Trae pacá!!! Si tiene algo de valor, lo voy a empeñar",
+        "Pruébatelo reina 💅🏼",
+        "Dar objeto: Túnica dorada"
+      ],
+      "NextPrompts": [
+        "Valarth_06_MaskBreak",
+        "Valarth_06_MaskBreak",
+        "Valarth_06_MaskBreak"
+      ]
+    },
+
+    {
+      "Name": "Valarth_06_MaskBreak",
+      "Texts": [
+        "Te mato",
+        "Valarth se quita el harapo que lleva, y con gesto torpe deja caer la máscara"
+      ],
+      "NextPrompts": ["Outro"]
+    },
+
+    {
+      "Name": "Outro",
+      "Texts": [
+        "REINA, GUAPA, GUAPA y GUAPA BONITA Y PRECIOSA",
+        "Gracias, elfa, sea como sea que te llames"
+      ],
+      "Tags": ["End"]
+    }
+  ]
 }

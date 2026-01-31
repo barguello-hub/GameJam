@@ -123,7 +123,7 @@ public class DialogueManager : MonoBehaviour
         BuildDictionary();
 
         isInDialogue = false;
-        for(int i=0; i < 3; ++i)
+        for(int i=0; i < 4; ++i)
         {
             GameObject new_choice = Instantiate(defaultChoice, choiceLayer.transform);
             RectTransform transform = new_choice.GetComponent<RectTransform>();

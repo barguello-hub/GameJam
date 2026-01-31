@@ -167,9 +167,6 @@ public class GameManager : MonoBehaviour
         if(isInBattle)
         {
             
-        }else if(Input.GetKeyDown(KeyCode.E))
-        {
-            StartBattle("FinalBossPhase");
         }
     }
 }
