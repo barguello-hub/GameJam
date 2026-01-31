@@ -1,93 +1,198 @@
 using UnityEngine;
 
-public class EnemyPatrol : MonoBehaviour
+public class EnemyPatrolRandom : MonoBehaviour
 {
     [Header("Patrol Area")]
-    [SerializeField] private Vector2 minBounds = new Vector2(12f, 0f);    // Esquina inferior izquierda
-    [SerializeField] private Vector2 maxBounds = new Vector2(14f, 1f);    // Esquina superior derecha
+    [SerializeField] private Vector2 minBounds = new Vector2(12f, 0f);
+    [SerializeField] private Vector2 maxBounds = new Vector2(14f, 1f);
     
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 1f;                        // Velocidad de patrullaje
-    [SerializeField] private float waitTimeAtPoint = 1f;                   // Tiempo de espera en cada esquina
+    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float changeDirectionTime = 2f;
     
-    [Header("Patrol Type")]
-    [SerializeField] private bool randomPatrol = false;                    // ¿Movimiento aleatorio o en línea?
+    [Header("Detection Settings")]
+    [SerializeField] private float detectionRange = 2f;              // Distancia para activar combate
+    [SerializeField] private bool showDetectionRange = true;          // Mostrar círculo de detección
     
-    private Vector2 currentTarget;
-    private bool isWaiting = false;
-    private float waitTimer = 0f;
+    [Header("Battle Settings")]
+    [SerializeField] private string battleSceneName = "FinalBossPhase";  // Nombre de la batalla
+    [SerializeField] private bool hasTriggeredBattle = false;         // ¿Ya se activó el combate?
+    [SerializeField] private bool stopMovementOnDetection = true;     // Detener movimiento al detectar
+    
+    private Vector2 currentDirection;
+    private float directionTimer = 0f;
+    private Transform player;
+    private bool isPlayerDetected = false;
     
     private void Start()
     {
-        // Empezar en la posición actual o en el centro del área
+        // Posición inicial dentro del área
         transform.position = new Vector3(
-            Mathf.Clamp(transform.position.x, minBounds.x, maxBounds.x),
-            Mathf.Clamp(transform.position.y, minBounds.y, maxBounds.y),
+            Random.Range(minBounds.x, maxBounds.x),
+            Random.Range(minBounds.y, maxBounds.y),
             transform.position.z
         );
         
-        // Elegir primer destino
-        ChooseNewTarget();
+        ChooseRandomDirection();
         
-        Debug.Log($"[Enemy] Patrullaje iniciado entre {minBounds} y {maxBounds}");
+        // Buscar al jugador
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        
+        if (player == null)
+        {
+            Debug.LogWarning("[Enemy] No se encontró el Player. Asegúrate de que tenga el tag 'Player'");
+        }
     }
     
     private void Update()
     {
-        if (isWaiting)
+        // Detectar al jugador
+        CheckPlayerProximity();
+        
+        // No moverse si está detenido o si ya se activó el combate
+        if (isPlayerDetected || hasTriggeredBattle)
         {
-            waitTimer -= Time.deltaTime;
-            if (waitTimer <= 0f)
-            {
-                isWaiting = false;
-                ChooseNewTarget();
-            }
             return;
         }
         
-        // Moverse hacia el objetivo
-        Vector2 currentPos = transform.position;
-        Vector2 newPos = Vector2.MoveTowards(currentPos, currentTarget, moveSpeed * Time.deltaTime);
-        transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
-        
-        // ¿Llegó al objetivo?
-        if (Vector2.Distance(currentPos, currentTarget) < 0.1f)
+        // Timer para cambiar dirección
+        directionTimer -= Time.deltaTime;
+        if (directionTimer <= 0f)
         {
-            isWaiting = true;
-            waitTimer = waitTimeAtPoint;
+            ChooseRandomDirection();
+            directionTimer = changeDirectionTime;
+        }
+        
+        // Moverse
+        Vector2 currentPos = transform.position;
+        Vector2 newPos = currentPos + currentDirection * moveSpeed * Time.deltaTime;
+        
+        // Rebotar si toca los límites
+        if (newPos.x < minBounds.x || newPos.x > maxBounds.x)
+        {
+            currentDirection.x = -currentDirection.x;
+            newPos.x = Mathf.Clamp(newPos.x, minBounds.x, maxBounds.x);
+        }
+        
+        if (newPos.y < minBounds.y || newPos.y > maxBounds.y)
+        {
+            currentDirection.y = -currentDirection.y;
+            newPos.y = Mathf.Clamp(newPos.y, minBounds.y, maxBounds.y);
+        }
+        
+        transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
+    }
+    
+    private void CheckPlayerProximity()
+    {
+        if (player == null || hasTriggeredBattle) return;
+        
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        
+        // Si el jugador está dentro del rango
+        if (distanceToPlayer <= detectionRange)
+        {
+            if (!isPlayerDetected)
+            {
+                OnPlayerDetected();
+            }
         }
     }
     
-    private void ChooseNewTarget()
+    /*
+    private void OnPlayerDetected()
     {
-        if (randomPatrol)
+        isPlayerDetected = true;
+        hasTriggeredBattle = true;
+        
+        Debug.Log($"[Enemy] ¡Jugador detectado! Iniciando batalla: {battleSceneName}");
+        
+        // Detener movimiento
+        if (stopMovementOnDetection)
         {
-            // Movimiento aleatorio dentro del área
-            currentTarget = new Vector2(
-                Random.Range(minBounds.x, maxBounds.x),
-                Random.Range(minBounds.y, maxBounds.y)
-            );
+            currentDirection = Vector2.zero;
+        }
+        
+        // Opcional: Mirar hacia el jugador
+        Vector2 direction = player.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+        
+        // INICIAR EL COMBATE
+        StartBattle();
+    }
+    */
+    [Header("Animation")]
+    [SerializeField] private bool jumpTowardsPlayer = true;
+    [SerializeField] private float jumpDuration = 0.3f;
+
+    private void OnPlayerDetected()
+    {
+        isPlayerDetected = true;
+        hasTriggeredBattle = true;
+        
+        Debug.Log($"[Enemy] ¡Jugador detectado! Iniciando batalla: {battleSceneName}");
+        
+        // Saltar hacia el jugador
+        if (jumpTowardsPlayer)
+        {
+            StartCoroutine(JumpTowardsPlayer());
         }
         else
         {
-            // Movimiento en línea (esquinas del rectángulo)
-            // Alterna entre las 4 esquinas
-            int corner = Random.Range(0, 4);
-            switch (corner)
-            {
-                case 0: currentTarget = new Vector2(minBounds.x, minBounds.y); break; // Abajo-Izquierda
-                case 1: currentTarget = new Vector2(maxBounds.x, minBounds.y); break; // Abajo-Derecha
-                case 2: currentTarget = new Vector2(maxBounds.x, maxBounds.y); break; // Arriba-Derecha
-                case 3: currentTarget = new Vector2(minBounds.x, maxBounds.y); break; // Arriba-Izquierda
-            }
+            StartBattle();
         }
-        
-        Debug.Log($"[Enemy] Nuevo objetivo: {currentTarget}");
     }
     
-    // DEBUG: Dibujar el área de patrullaje en la Scene view
+    private void StartBattle()
+    {
+        // Verificar que el GameManager existe
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.StartBattle(battleSceneName);
+            Debug.Log($"[Enemy] Combate iniciado: {battleSceneName}");
+        }
+        else
+        {
+            Debug.LogError("[Enemy] ¡GameManager.Instance no encontrado! Asegúrate de que existe en la escena.");
+        }
+    }    
+
+    private System.Collections.IEnumerator JumpTowardsPlayer()
+    {
+        Vector3 startPos = transform.position;
+        Vector3 endPos = player.position;
+        float elapsed = 0f;
+        
+        while (elapsed < jumpDuration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = elapsed / jumpDuration;
+            
+            // Movimiento con arco (parábola)
+            Vector3 currentPos = Vector3.Lerp(startPos, endPos, progress);
+            currentPos.y += Mathf.Sin(progress * Mathf.PI) * 0.5f; // Altura del salto
+            
+            transform.position = currentPos;
+            
+            yield return null;
+        }
+        
+        StartBattle();
+    }
+
+    
+    private void ChooseRandomDirection()
+    {
+        currentDirection = new Vector2(
+            Random.Range(-1f, 1f),
+            Random.Range(-1f, 1f)
+        ).normalized;
+    }
+    
     private void OnDrawGizmos()
     {
+        // Área de patrullaje (amarillo)
         Gizmos.color = Color.yellow;
         
         Vector3 bottomLeft = new Vector3(minBounds.x, minBounds.y, 0);
@@ -100,11 +205,11 @@ public class EnemyPatrol : MonoBehaviour
         Gizmos.DrawLine(topRight, topLeft);
         Gizmos.DrawLine(topLeft, bottomLeft);
         
-        // Dibujar el objetivo actual
-        if (Application.isPlaying)
+        // Rango de detección (rojo)
+        if (showDetectionRange)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(currentTarget, 0.2f);
+            Gizmos.DrawWireSphere(transform.position, detectionRange);
         }
     }
 }
