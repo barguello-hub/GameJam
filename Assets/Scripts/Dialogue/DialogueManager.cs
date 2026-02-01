@@ -399,6 +399,7 @@ public class DialogueManager : MonoBehaviour
                 {
                     currentPrompt = prompt;
                     currentPromptName = currentPrompt.Name;
+                    currentPromptBreak = 0;
                     UpdateText();
                     
                     //DEBUG

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject AmaraIndicators;
     public GameObject InventoryLayer;
     public GameObject Player;
+    public GameObject BattleTitleImage;
     private DialogueManager dialogueManager;
     public int InitialAmaraDetermination;
     public int currentAmaraDetermination;
@@ -38,6 +39,10 @@ public class GameManager : MonoBehaviour
     public AudioClip MaskBreakingSfx;
     public AudioClip MaskBrokenSfx;
     public AudioClip ChestOpenSfx;
+
+    public Sprite startTherapyTitle;
+    public Sprite endTherapyTitle;
+    public Sprite failTherapyTitle;
 
     public static GameManager Instance { get; private set; }
 
@@ -74,6 +79,7 @@ public class GameManager : MonoBehaviour
         Screen.fullScreenMode = FullScreenMode.Windowed;
         initial_pos = dialogueLayer.GetComponent<RectTransform>().anchoredPosition;
 
+        BattleTitleImage.SetActive(false);
         //DEBUG
         // StartBattle("FinalBossPhase");
     }
@@ -145,15 +151,16 @@ public class GameManager : MonoBehaviour
         dialogueManager.GetFirstPrompt();
         currentEnemyAnger = 0;
         isInBattle = true;
-        anim_finished = false;
+        anim_start_finished = false;
         acc_time = 0.0f;
-        // Player.GetComponent<PlayerMovement>().enabled = false;
         Player.GetComponent<PlayerMovement>().moveSpeed = 0.0f;
         UpdateUI();
 
         audioSource.clip = battle_music;
         audioSource.loop = true;
         audioSource.Play();
+
+        BattleTitleImage.SetActive(true);
     }
 
     public void ToggleInventory()
@@ -220,6 +227,7 @@ public class GameManager : MonoBehaviour
         {
             if(currentAmaraDetermination <= 0 || currentEnemyAnger >= 3)
             {
+                
                 EndBattle();
             }
         }
@@ -247,6 +255,10 @@ public class GameManager : MonoBehaviour
         audioSource.clip = idle_music;
         audioSource.loop = true;
         audioSource.Play();
+
+        BattleTitleImage.SetActive(true);
+        anim_end_finished = false;
+        acc_time = 0.0f;
     }
 
     void EndDialogue()
@@ -297,13 +309,14 @@ public class GameManager : MonoBehaviour
 
     private float acc_time = 0.0f;
     private UnityEngine.Vector2 initial_pos;
-    private bool anim_finished = false;
+    private bool anim_start_finished = false;
+    private bool anim_end_finished = false;
     public float BattleStartLength;
     void Update()
     {
         if(isInBattle)
         {
-            if(!anim_finished)
+            if(!anim_start_finished)
             {
                 acc_time+=Time.deltaTime;
 
@@ -313,11 +326,24 @@ public class GameManager : MonoBehaviour
                 RectTransform transform = TopLayer.GetComponent<RectTransform>();
                 transform.sizeDelta = new UnityEngine.Vector2(0.0f, t * 2000.0f);
 
+                transform = BattleTitleImage.GetComponent<RectTransform>();
+                transform.anchoredPosition = new UnityEngine.Vector2(0.0f, 0.0f);
+
+                BattleTitleImage.GetComponent<Image>().sprite = startTherapyTitle;
+
+                float alpha = acc_time / BattleStartLength;
+                alpha =  Mathf.SmoothStep(0f, 1.0f, t);
+                
+                Color c = BattleTitleImage.GetComponent<Image>().color;
+                c.a = alpha;   // 0 = transparent, 1 = opaque
+                BattleTitleImage.GetComponent<Image>().color = c;
+
 
                 if(acc_time > BattleStartLength)
                 {
-                    anim_finished = true;
+                    anim_start_finished = true;
                     acc_time = 0.0001f;
+                    BattleTitleImage.SetActive(false);
                 }
                 // transform = dialogueLayer.GetComponent<RectTransform>();
                 // transform.anchoredPosition = initial_pos + new UnityEngine.Vector2(0.0f, MathF.Sin(acc_time * 1.5f) * 12.5f);
@@ -335,7 +361,36 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // StartBattle("FirstEnemyPhase");
+            if (!anim_end_finished)
+            {
+                if(acc_time > BattleStartLength)
+                {
+                    anim_end_finished = true;
+                    acc_time = 0.0001f;
+                    BattleTitleImage.SetActive(false);
+                }
+
+                if(currentAmaraDetermination <= 0 || currentEnemyAnger >= 3)
+                {  
+                    BattleTitleImage.GetComponent<Image>().sprite = failTherapyTitle;
+                }
+                else
+                {
+                    BattleTitleImage.GetComponent<Image>().sprite = endTherapyTitle;
+                }
+
+                acc_time+=Time.deltaTime;
+                float t = acc_time / (BattleStartLength*0.66f);
+                t = Mathf.SmoothStep(1f, 0f, t);
+
+                RectTransform transform = BattleTitleImage.GetComponent<RectTransform>();
+                transform.anchoredPosition = new UnityEngine.Vector2(0.0f, 0.0f);
+
+                Color c = BattleTitleImage.GetComponent<Image>().color;
+                c.a = t;   // 0 = transparent, 1 = opaque
+                BattleTitleImage.GetComponent<Image>().color = c;
+
+            }
         }
     }
 }
