@@ -35,7 +35,8 @@ public class DialoguePrompt
 public class SpritePair
 {
     public string name;
-    public Sprite sprite;
+    public List<Sprite> sprites;
+    public int sprite_counter = 0;
 }
 
 public class DialogueManager : MonoBehaviour
@@ -44,6 +45,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject choiceLayer;
     public GameObject defaultChoice;
     public GameObject characterSprite;
+    public GameObject EnemyIndicators;
     public List<SpritePair> SpriteList;
     // public GameObject inventoryLayer;    
 
@@ -60,6 +62,8 @@ public class DialogueManager : MonoBehaviour
     private bool waitForInput;
 
     public Phases Phases;
+
+    public string currentCharName;
 
     void LoadJson()
     {
@@ -165,10 +169,21 @@ public class DialogueManager : MonoBehaviour
         {
             if(string.Equals(pair.name, name, System.StringComparison.OrdinalIgnoreCase))
             {
-                return pair.sprite;
+                int i = Math.Min(pair.sprites.Count-1, pair.sprite_counter);
+                return pair.sprites[i];
             }
         }
         return null;
+    }
+    void AdvanceSpriteCounter(string name)
+    {
+        foreach(SpritePair pair in SpriteList)
+        {
+            if(string.Equals(pair.name, name, System.StringComparison.OrdinalIgnoreCase))
+            {
+                pair.sprite_counter += 1;
+            }
+        }
     }
 
     void UpdateText()
@@ -184,9 +199,23 @@ public class DialogueManager : MonoBehaviour
             int i=0;
             foreach(string text in currentPrompt.Texts)
             {
-                SpawnedChoices[i].SetActive(true);
+
                 TextMeshProUGUI choice_text = SpawnedChoices[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
                 choice_text.text = text;
+                
+                if(text.Contains("objeto"))
+                {
+                    if(GameManager.Instance.HasObjects())
+                    {
+                        choice_text.text = "Dar "+ GameManager.Instance.GetRelevantObject();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                SpawnedChoices[i].SetActive(true);
                 
                 string choice_next_prompt_name = currentPrompt.NextPrompts[i];
                 UnityEngine.Debug.Log($"Setting button for prompt: {choice_next_prompt_name}");
@@ -208,19 +237,36 @@ public class DialogueManager : MonoBehaviour
                 currentPromptBreak+=1; 
                 
                 //set name for character
-                string char_name = currentPromptName.Split('_')[0];
-                dialogueLayer.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = char_name;
+                currentCharName = currentPromptName.Split('_')[0];
+                dialogueLayer.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = currentCharName;
                 
-                Sprite spr = GetSpriteByName(char_name);
+                if(currentPromptName.Contains("Crack") || currentPrompt.Tags.Contains("CrackMask"))
+                {
+                    AdvanceSpriteCounter(currentCharName);
+                }
+
+                Sprite spr = GetSpriteByName(currentCharName);
                 if (spr != null)
                 {
                     characterSprite.SetActive(true);
                     characterSprite.transform.GetChild(0).GetComponent<Image>().sprite = spr;
-                }else
+                }
+                else
                 {
                     characterSprite.SetActive(false);
-                    UnityEngine.Debug.Log($"The char sprite for {char_name} wasn't found!");
+                    UnityEngine.Debug.Log($"The char sprite for {currentCharName} wasn't found!");
                 }
+
+                Sprite spr_portrait = GetSpriteByName(currentCharName+"Portrait");
+                if (spr_portrait != null)
+                {
+                    EnemyIndicators.transform.GetChild(0).GetComponent<Image>().sprite = spr_portrait;
+                }
+                else
+                {
+                    UnityEngine.Debug.Log($"The char sprite for {currentCharName} wasn't found!");
+                }
+                
             }
         }
     }
