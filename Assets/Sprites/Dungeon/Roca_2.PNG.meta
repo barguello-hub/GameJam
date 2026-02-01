@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 53e345b6f3f3b46f9a2605b399592ef7
+guid: e1c8d3b6e547b47d69686f6cb7d17ce9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -98034239563012386
-    second: Amara (1)_0
+      213: -7426544872770011051
+    second: Roca_2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Amara (1)_0
+      name: Roca_2_0
       rect:
         serializedVersion: 2
-        x: 6
+        x: 2
         y: 0
-        width: 20
-        height: 29
+        width: 29
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ed66507e066b3aef0800000000000000
-      internalID: -98034239563012386
+      spriteID: 5508b0629cc9fe890800000000000000
+      internalID: -7426544872770011051
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Amara (1)_0: -98034239563012386
+      Roca_2_0: -7426544872770011051
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

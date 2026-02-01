@@ -76,6 +76,17 @@ public class Coin : MonoBehaviour
         {
             coinCollider.enabled = false;
         }
+
+        // Verificar que el GameManager existe
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.PickUpObject("Oro");
+            Debug.Log($"[Moneda recogida");
+        }
+        else
+        {
+            Debug.LogError("Error al recoger Moneda");
+        }
         
         // Activar partículas ANTES de destruir
         if (collectParticles != null)

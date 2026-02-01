@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4bb96c5b6b3694e0289cda20f79a42a6
+guid: 811563205e44a4341a1cfcc5b57af627
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4517173456829324975
-    second: Amara_artefinal_0
+      213: -3341424461642536599
+    second: Spix_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Amara_artefinal_0
+      name: Spix_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 1
-        width: 20
-        height: 30
+        x: 0
+        y: 0
+        width: 32
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1516ddc8ca6cf41c0800000000000000
-      internalID: -4517173456829324975
+      spriteID: 969eeffd720e0a1d0800000000000000
+      internalID: -3341424461642536599
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Amara_artefinal_0: -4517173456829324975
+      Spix_0: -3341424461642536599
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

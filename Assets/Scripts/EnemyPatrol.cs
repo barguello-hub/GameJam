@@ -18,6 +18,7 @@ public class EnemyPatrolRandom : MonoBehaviour
     [SerializeField] private string battleSceneName = "FinalBossPhase";  // Nombre de la batalla
     [SerializeField] private bool hasTriggeredBattle = false;         // ¿Ya se activó el combate?
     [SerializeField] private bool stopMovementOnDetection = true;     // Detener movimiento al detectar
+    [SerializeField] private bool pelea = false;
     
     private Vector2 currentDirection;
     private float directionTimer = 0f;
@@ -128,8 +129,10 @@ public class EnemyPatrolRandom : MonoBehaviour
 
     private void OnPlayerDetected()
     {
-        isPlayerDetected = true;
-        hasTriggeredBattle = true;
+        if (pelea) {
+            isPlayerDetected = true;
+            hasTriggeredBattle = true;
+        }
         
         Debug.Log($"[Enemy] ¡Jugador detectado! Iniciando batalla: {battleSceneName}");
         
@@ -141,7 +144,8 @@ public class EnemyPatrolRandom : MonoBehaviour
         else
         {
             StartBattle();
-        }
+        }      
+        
     }
     
     private void StartBattle()
@@ -178,7 +182,7 @@ public class EnemyPatrolRandom : MonoBehaviour
             yield return null;
         }
         
-        StartBattle();
+        if(pelea) StartBattle();
     }
 
     
