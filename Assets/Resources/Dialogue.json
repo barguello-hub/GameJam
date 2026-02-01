@@ -277,6 +277,7 @@
         "Name": "Valarth_Interlude_01_00",
         "Texts": ["Por cierto, qué ha sido ese ruido? Es como si se hubiera roto algo..."],
         "NextPrompts": ["Amara_Interlude_01_01"]
+        ,"Tags": ["CrackMask"]
     },
     {
         "Name": "Amara_Interlude_01_01",
@@ -306,6 +307,7 @@
         "Texts": ["(Valarth deja escapar un golpe de aliento de sorpresa, pero pronto se reconforta entre los blandengues brazos de Amara)",
         "Un abrazo en la cultura orca es visto como una debilidad, pero supongo que puedo hacer una excepción, por lo menos nadie nos ha visto..."],
         "NextPrompts": ["Amara_08"]
+        ,"Tags": ["CrackMask"]
     },
 
     {
@@ -431,7 +433,8 @@
         "Name": "Valarth_10_Good",
         "Texts": ["DIOS MIO! PERO SI ES UN D&G ORIGINAL!!!"],
         "NextPrompts": ["Amara_Interlude_04_00"],
-        "Tags":["ConsumeObject"]
+        "Tags":["CrackMask"]
+        
     },
 
     {
@@ -465,7 +468,8 @@
         "Name": "Valarth_11_Crack",
         "Texts": ["(Valarth se quita el harapo que lleva, y con gran destreza se pone el vestido)",
         "MADRE MIA MADRE MIA, ME QUEDA DIVINO, DI-VI-NO"],
-        "NextPrompts": ["Amara_Outro_00"]
+        "NextPrompts": ["Amara_Outro_00"],
+        "Tags":["CrackMask"]
     },
 
     {
@@ -483,7 +487,7 @@
 ],
   "FirstEnemyPhase": [
     {
-        "Name": "Spinx_00",
+        "Name": "Spix_00",
         "Texts": [
             "A-a-alto ahi, esporia!"
         ],
@@ -501,9 +505,9 @@
             "Esporia? No querrás decir ¨escoria?"
         ],
         "NextPrompts": [
-            "Spinx_01_Bad_00",
-            "Spinx_01_Good_00",
-            "Spinx_01_Bad_01"
+            "Spix_01_Bad_00",
+            "Spix_01_Good_00",
+            "Spix_01_Bad_01"
         ]
     },
     {
@@ -514,8 +518,8 @@
             "Vale, bueno, y a qué te dedicas?"
         ],
         "NextPrompts": [
-            "Spinx_02_Bad_00",
-            "Spinx_02_Good_00"
+            "Spix_02_Bad_00",
+            "Spix_02_Good_00"
         ]
     },
     {
@@ -527,9 +531,9 @@
             "Mencionaste unos calmantes... de qué estamos hablando exactamente?"
         ],
         "NextPrompts": [
-            "Spinx_03_Bad_00",
-            "Spinx_03_Bad_01",
-            "Spinx_03_Good_00"
+            "Spix_03_Bad_00",
+            "Spix_03_Bad_01",
+            "Spix_03_Good_00"
         ]
     },
     {
@@ -541,9 +545,9 @@
             "Dar objeto"
         ],
         "NextPrompts": [
-            "Spinx_04_Bad_00",
-            "Spinx_04_Bad_01",
-            "Spinx_04_Good_00"
+            "Spix_04_Bad_00",
+            "Spix_04_Bad_01",
+            "Spix_04_Good_00"
         ]
     },
     {
@@ -555,9 +559,9 @@
             "No sé si unos palitos de regaliz van a curarte, estás bastante pallá."
         ],
         "NextPrompts": [
-            "Spinx_05_Bad_00",
-            "Spinx_05_Good_00",
-            "Spinx_05_Bad_01"
+            "Spix_05_Bad_00",
+            "Spix_05_Good_00",
+            "Spix_05_Bad_01"
         ]
     },
     {
@@ -569,32 +573,32 @@
             "Necesitas dejar de fumar ya."
         ],
         "NextPrompts": [
-            "Spinx_06_Good_00",
-            "Spinx_06_Bad_00",
-            "Spinx_06_Bad_01"
+            "Spix_06_Good_00",
+            "Spix_06_Bad_00",
+            "Spix_06_Bad_01"
         ]
     },
     
     {
-        "Name": "Spinx_01_Bad_00",
+        "Name": "Spix_01_Bad_00",
         "Texts": ["Ni en sueños! Atrás!"]
     },
     {
-        "Name": "Spinx_01_Bad_01",
+        "Name": "Spix_01_Bad_01",
         "Texts": ["NO ME CORRIJAS !!!!"]
     },
     {
-        "Name": "Spinx_01_Good_00",
+        "Name": "Spix_01_Good_00",
         "Texts": ["EH! Para tu información, tengo una astura media, por lo menos para un goblin"],
         "NextPrompts": ["Amara_02"]
     },
 
     {
-        "Name": "Spinx_02_Bad_00",
+        "Name": "Spix_02_Bad_00",
         "Texts": ["Hablo como me da la gana!"]
     },
     {
-        "Name": "Spinx_02_Good_00",
+        "Name": "Spix_02_Good_00",
         "Texts": ["Hmm, vaya, nunca le habian preguntado eso a este pobre gomlin..."],
         "NextPrompts": ["Spix_Interlude_00"],
         "Tags":["CrackMask"]
@@ -617,59 +621,62 @@
     },
 
     {
-        "Name": "Spinx_03_Bad_00",
+        "Name": "Spix_03_Bad_00",
         "Texts": ["N-n-nooo, eres mala, mala, mala!"]
     },
     {
-        "Name": "Spinx_03_Bad_01",
+        "Name": "Spix_03_Bad_01",
         "Texts": ["N-n-nooo, eres mala, mala, mala!"]
     },
     {
-        "Name": "Spinx_03_Good_00",
+        "Name": "Spix_03_Good_00",
         "Texts": ["Son unos palitos mágicos que se encienden y se aspiran... y te hacen sentir bieeeeen bien bien durante toda la noche."],
         "NextPrompts": ["Amara_04"]
     },
 
         {
-        "Name": "Spinx_04_Bad_00",
+        "Name": "Spix_04_Bad_00",
         "Texts": ["NO SON DROGAS"]
     },
     {
-        "Name": "Spinx_04_Bad_01",
+        "Name": "Spix_04_Bad_01",
         "Texts": ["NO SE LO DIGAS A LA JEFA!?"]
     },
     {
-        "Name": "Spinx_04_Good_00",
+        "Name": "Spix_04_Good_00",
         "Texts": ["No serán mis palitos pero...vaya! podria pasticar esto un rato, supongo"],
         "NextPrompts": ["Amara_05"],
         "Tags":["CrackMask"]
     },
 
         {
-        "Name": "Spinx_05_Bad_00",
+        "Name": "Spix_05_Bad_00",
         "Texts": ["No es de tu intumbencia!"]
     },
     {
-        "Name": "Spinx_05_Bad_01",
+        "Name": "Spix_05_Bad_01",
         "Texts": ["QUE HAS DICHOOO?!"]
     },
     {
-        "Name": "Spinx_05_Good_00",
-        "Texts": ["Si, si, si, lo sé! No germines la frase. Estoy nervioso, vale? Llevo demasiado tiempo montando guardia, aquí solo. Hasta le he puesto nombre a la lanza, soy YIDICULO !!!"],
+        "Name": "Spix_05_Good_00",
+        "Texts": ["Si, si, si, lo sé! No germines la frase. Estoy nervioso, vale? Llevo demasiado tiempo montando guardia, aquí solo.",
+        "Hasta le he puesto nombre a la lanza, soy YIDICULO !!!"],
         "NextPrompts": ["Amara_06"]
     },
 
     {
-        "Name": "Spinx_06_Bad_00",
+        "Name": "Spix_06_Bad_00",
         "Texts": ["Logoqué?"]
     },
     {
-        "Name": "Spinx_06_Bad_01",
+        "Name": "Spix_06_Bad_01",
         "Texts": ["Es muy fácil de decir para una elfa sana!"]
     },
     {
-        "Name": "Spinx_06_Good_00",
-        "Texts": ["Ahh... es la primera vez que me corrige alguien y no pierdo los nervios. Eres buena! Ahora mismo voy a hablar con la jefa, me daba miedo pedirle un cambio, porque últimamente está muy rara, más pirascible de lo normal, y como distante y casiturna... Por cierto, te queda algún palito de esos?"],
+        "Name": "Spix_06_Good_00",
+        "Texts": ["Ahh... es la primera vez que me corrige alguien y no pierdo los nervios. Eres buena!",
+        "Ahora mismo voy a hablar con la jefa, me daba miedo pedirle un cambio, porque últimamente está muy rara, más pirascible de lo normal, y como distante y taciturna...",
+        "Por cierto, te queda algún palito de esos?"],
         "NextPrompts": ["Amara_Outro_00"],
         "Tags":["CrackMask"]
     },
@@ -677,20 +684,20 @@
     {
         "Name": "Amara_Outro_00",
         "Texts": ["Me temo que ya no tengo más, Spix."],
-        "NextPrompts": ["Spinx_Outro_00"]
+        "NextPrompts": ["Spix_Outro_00"]
     },
     {
-        "Name": "Spinx_Outro_00",
+        "Name": "Spix_Outro_00",
         "Texts": ["Espera, como sabes mi nombre?"],
         "NextPrompts": ["Amara_Outro_01"]
     },
     {
         "Name": "Amara_Outro_01",
         "Texts": ["Lo pone aquí, en tu panel de personaje... no lo ves?"],
-        "NextPrompts": ["Spinx_Outro_01"]
+        "NextPrompts": ["Spix_Outro_01"]
     },
     {
-        "Name": "Spinx_Outro_01",
+        "Name": "Spix_Outro_01",
         "Texts": ["HMMMMM AAAAAAAAHH"],
         "NextPrompts": [""],
         "Tags":["End"]
@@ -859,11 +866,26 @@
 
     {
         "Name": "Soldado_Outro_00",
-        "Texts": ["BASTIAN MI AMOOOOOR, COGE A JUNIOR QUE NOS LARGAMOS DE AQUÍ !!!"],
+        "Texts": ["BASTIAN MI AMOOOOOR, COGE A JUNIOR QUE NOS LARGAMOS DE AQUÍ !!!","Ah, por cierto, a la jefa se le cayó esto el otro dia...","(Recibes una bonita blusa. Parece de calidad)"],
         "NextPrompts": [""],
         "Tags":["End"]
    }
 
 
+  ],
+  "StorePhase": [
+    {
+        "Name": "Amara_01",
+        "isChoice":true,
+        "Texts": ["Comprar regaliz a cambio de objeto"],
+        "NextPrompts": ["Mochi_01"],
+        "Tags":["Start"]
+   },
+   {
+        "Name": "Mochi_01",
+        "Texts": ["Gracias por venir !! :3"],
+        "NextPrompts": [""],
+        "Tags":["End"]
+   }
   ]
 }

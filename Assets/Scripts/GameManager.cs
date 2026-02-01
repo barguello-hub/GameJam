@@ -30,6 +30,15 @@ public class GameManager : MonoBehaviour
     private int currentEnemyAnger;
     public bool isInBattle;
 
+    public AudioClip idle_music;
+    public AudioClip battle_music;
+    private AudioSource audioSource;
+    public AudioSource sfxSource;
+
+    public AudioClip MaskBreakingSfx;
+    public AudioClip MaskBrokenSfx;
+    public AudioClip ChestOpenSfx;
+
     public static GameManager Instance { get; private set; }
 
     void Awake()
@@ -42,6 +51,11 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = idle_music;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     void OnApplicationQuit()
@@ -136,6 +150,10 @@ public class GameManager : MonoBehaviour
         // Player.GetComponent<PlayerMovement>().enabled = false;
         Player.GetComponent<PlayerMovement>().moveSpeed = 0.0f;
         UpdateUI();
+
+        audioSource.clip = battle_music;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     public void ToggleInventory()
@@ -213,6 +231,22 @@ public class GameManager : MonoBehaviour
         Player.GetComponent<PlayerMovement>().moveSpeed = 3.0f;
         EndDialogue();
         UpdateUI();
+
+        if(dialogueManager.currentPhaseName == "SecondEnemyPhase")
+        {
+            PickUpObject("Blusa Roja");
+            RemoveObject("Palito de Regaliz");
+        }
+
+        if(dialogueManager.currentPhaseName == "StorePhase")
+        {
+            PickUpObject("Palito de Regaliz");
+            RemoveObject("Oro");
+        }
+
+        audioSource.clip = idle_music;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     void EndDialogue()
@@ -230,6 +264,34 @@ public class GameManager : MonoBehaviour
                 pair.count += 1;
                 return;
             }
+        }
+    }
+
+    public void RemoveObject(string object_name)
+    {
+        foreach(InventoryPair pair in AmaraInventory)
+        {
+            if(string.Equals(object_name, pair.name, System.StringComparison.OrdinalIgnoreCase))
+            {
+                pair.count = 0;
+                return;
+            }
+        }
+    }
+
+    public void ReproduceSound(string soundName)
+    {
+        switch (soundName)
+        {
+            case "MaskBreaking":
+            sfxSource.PlayOneShot(MaskBreakingSfx);
+            break;
+            case "OpenChest":
+            sfxSource.PlayOneShot(ChestOpenSfx);
+            break;
+            case "MaskBroken":
+            sfxSource.PlayOneShot(MaskBrokenSfx);
+            break;
         }
     }
 
@@ -273,7 +335,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // StartBattle("FinalBossPhase");
+            // StartBattle("FirstEnemyPhase");
         }
     }
 }

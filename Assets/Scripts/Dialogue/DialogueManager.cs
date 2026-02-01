@@ -16,6 +16,8 @@ public class Phases
     public Dictionary<string, DialoguePrompt> FirstEnemyDict;
     public List<DialoguePrompt> SecondEnemyPhase;
     public Dictionary<string, DialoguePrompt> SecondEnemyDict;
+        public List<DialoguePrompt> StorePhase;
+    public Dictionary<string, DialoguePrompt> StoreDict;
 }
 
 [Serializable]
@@ -127,6 +129,22 @@ public class DialogueManager : MonoBehaviour
         }
 
         UnityEngine.Debug.Log($"Second Enemy Dictionary built with {Phases.SecondEnemyDict.Count} prompts");
+
+        Phases.StoreDict = new Dictionary<string, DialoguePrompt>();
+        foreach (var prompt in Phases.StorePhase)
+        {
+            if (Phases.StoreDict.ContainsKey(prompt.Name))
+            {
+                UnityEngine.Debug.LogWarning(
+                    $"Duplicate PromptName found in Second Enemy: {prompt.Name}"
+                );
+                continue;
+            }
+
+            Phases.StoreDict.Add(prompt.Name, prompt);
+        }
+
+        UnityEngine.Debug.Log($"Second Enemy Dictionary built with {Phases.StoreDict.Count} prompts");
     }
     
     public void UpdateDialogueVariables(string PhaseName)
@@ -145,6 +163,10 @@ public class DialogueManager : MonoBehaviour
             case "SecondEnemyPhase": 
                 currentPhase = Phases.SecondEnemyPhase;
                 currentPhaseDictionary = Phases.SecondEnemyDict;
+                break;
+            case "StorePhase": 
+                currentPhase = Phases.StorePhase;
+                currentPhaseDictionary = Phases.StoreDict;
                 break;
         }
     }
@@ -209,6 +231,7 @@ public class DialogueManager : MonoBehaviour
     }
     void AdvanceSpriteCounter(string name)
     {
+        GameManager.Instance.ReproduceSound("MaskBreaking");
         foreach(SpritePair pair in SpriteList)
         {
             if(string.Equals(pair.name, name, System.StringComparison.OrdinalIgnoreCase))
@@ -239,7 +262,7 @@ public class DialogueManager : MonoBehaviour
                 {
                     if(GameManager.Instance.HasObjects())
                     {
-                        choice_text.text = "Dar "+ GameManager.Instance.GetRelevantObject();
+                        choice_text.text = choice_text.text.Replace("objeto", GameManager.Instance.GetRelevantObject());
                     }
                     else
                     {
@@ -318,6 +341,7 @@ public class DialogueManager : MonoBehaviour
                     currentPrompt = currentPhaseDictionary[NextPromptNameOverride];
                     currentPromptName = currentPrompt.Name;
                     UnityEngine.Debug.Log($"Moving to key {NextPromptNameOverride} prompt");
+                    if(currentPrompt.Tags.Contains("CrackMask")) AdvanceSpriteCounter(currentPromptName.Split('_')[0]);
                 }
                 else if(currentPhaseDictionary.ContainsKey(currentPrompt.NextPrompts[0]))
                 {
@@ -325,6 +349,7 @@ public class DialogueManager : MonoBehaviour
                     currentPrompt = currentPhaseDictionary[currentPrompt.NextPrompts[0]];
                     currentPromptName = currentPrompt.Name;
                     UnityEngine.Debug.Log($"Moving to key {currentPrompt.NextPrompts[0]} prompt");
+                    if(currentPrompt.Tags.Contains("CrackMask")) AdvanceSpriteCounter(currentPromptName.Split('_')[0]);
                 }
                 else
                 {
@@ -354,10 +379,10 @@ public class DialogueManager : MonoBehaviour
         }
 
         UpdateText();
-        if(CheckTextIsExhausted() && (currentPromptName.Contains("Crack") || currentPrompt.Tags.Contains("CrackMask")))
-        {
-            AdvanceSpriteCounter(currentCharName);
-        } 
+        // if(CheckTextIsExhausted() && currentPrompt.Tags.Contains("CrackMask"))
+        // {
+        //     AdvanceSpriteCounter(currentCharName);
+        // } 
 
         //DEBUG
         // Invoke(nameof(GetNextPrompt),2.0f);
@@ -375,7 +400,6 @@ public class DialogueManager : MonoBehaviour
                     currentPrompt = prompt;
                     currentPromptName = currentPrompt.Name;
                     UpdateText();
-                    waitForInput = true;
                     
                     //DEBUG
                     // Invoke(nameof(GetNextPrompt),2.0f);
