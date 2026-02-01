@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: baa14d7951d0a4838929eb32f7bc35d3
+guid: 6d315d6de024a402b881258ba49a52a4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6118062262483336279
-    second: spire-sheet-npc-tienda-idle_0
-  - first:
-      213: -887527822035590678
-    second: spire-sheet-npc-tienda-idle_1
-  - first:
-      213: -468717457079612656
-    second: spire-sheet-npc-tienda-idle_2
+      213: -1894070404757280502
+    second: Spix (2)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,67 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spire-sheet-npc-tienda-idle_0
+      name: Spix (2)_0
       rect:
         serializedVersion: 2
-        x: 6
+        x: 0
         y: 0
-        width: 23
-        height: 28
+        width: 32
+        height: 22
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a345f289c6481ba0800000000000000
-      internalID: -6118062262483336279
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spire-sheet-npc-tienda-idle_1
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 0
-        width: 23
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ae1ea4fe52edea3f0800000000000000
-      internalID: -887527822035590678
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spire-sheet-npc-tienda-idle_2
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 0
-        width: 23
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 01bceb6c4f7ce79f0800000000000000
-      internalID: -468717457079612656
+      spriteID: a09acd88009e6b5e0800000000000000
+      internalID: -1894070404757280502
       vertices: []
       indices: 
       edges: []
@@ -188,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e153514fe94794ff1ae2ecb3722005b3
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -198,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spire-sheet-npc-tienda-idle_0: -6118062262483336279
-      spire-sheet-npc-tienda-idle_1: -887527822035590678
-      spire-sheet-npc-tienda-idle_2: -468717457079612656
+      Spix (2)_0: -1894070404757280502
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
