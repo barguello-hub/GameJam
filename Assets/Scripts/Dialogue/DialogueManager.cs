@@ -2,6 +2,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 using System.Numerics;
 using System.Diagnostics;
@@ -18,6 +19,9 @@ public class Phases
     public Dictionary<string, DialoguePrompt> SecondEnemyDict;
         public List<DialoguePrompt> StorePhase;
     public Dictionary<string, DialoguePrompt> StoreDict;
+
+    public List<DialoguePrompt> IntroPhase;
+    public Dictionary<string, DialoguePrompt> IntroDict;
 }
 
 [Serializable]
@@ -145,6 +149,22 @@ public class DialogueManager : MonoBehaviour
         }
 
         UnityEngine.Debug.Log($"Second Enemy Dictionary built with {Phases.StoreDict.Count} prompts");
+
+        Phases.IntroDict = new Dictionary<string, DialoguePrompt>();
+        foreach (var prompt in Phases.IntroPhase)
+        {
+            if (Phases.IntroDict.ContainsKey(prompt.Name))
+            {
+                UnityEngine.Debug.LogWarning(
+                    $"Duplicate PromptName found in Second Enemy: {prompt.Name}"
+                );
+                continue;
+            }
+
+            Phases.IntroDict.Add(prompt.Name, prompt);
+        }
+
+        UnityEngine.Debug.Log($"Second Enemy Dictionary built with {Phases.IntroDict.Count} prompts");
     }
     
     public void UpdateDialogueVariables(string PhaseName)
@@ -167,6 +187,10 @@ public class DialogueManager : MonoBehaviour
             case "StorePhase": 
                 currentPhase = Phases.StorePhase;
                 currentPhaseDictionary = Phases.StoreDict;
+                break;
+            case "IntroPhase": 
+                currentPhase = Phases.IntroPhase;
+                currentPhaseDictionary = Phases.IntroDict;
                 break;
         }
     }
@@ -231,7 +255,6 @@ public class DialogueManager : MonoBehaviour
     }
     void AdvanceSpriteCounter(string name)
     {
-        GameManager.Instance.ReproduceSound("MaskBreaking");
         foreach(SpritePair pair in SpriteList)
         {
             if(string.Equals(pair.name, name, System.StringComparison.OrdinalIgnoreCase))
@@ -241,6 +264,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    public Coroutine typingCoroutine;
     void UpdateText()
     {
         ResetUI();
@@ -266,7 +290,7 @@ public class DialogueManager : MonoBehaviour
                     }
                     else
                     {
-                        break;
+                        choice_text.text = choice_text.text.Replace("objeto", "nada");
                     }
                 }
 
@@ -288,7 +312,8 @@ public class DialogueManager : MonoBehaviour
             TextMeshProUGUI dialogue_text = dialogueLayer.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             if(currentPrompt.Texts.Count >= currentPromptBreak+1)
             {
-                dialogue_text.text = currentPrompt.Texts[currentPromptBreak];
+                typingCoroutine = StartCoroutine(MakeTextAppear(currentPrompt.Texts[currentPromptBreak]));
+                // dialogue_text.text = currentPrompt.Texts[currentPromptBreak];
                 currentPromptBreak+=1; 
                 
                 //set name for character
@@ -307,7 +332,13 @@ public class DialogueManager : MonoBehaviour
                     UnityEngine.Debug.Log($"The char sprite for {currentCharName} wasn't found!");
                 }
 
+                if(currentPhaseName == "IntroPhase")
+                {
+                    characterSprite.SetActive(false);
+                }
+
                 Sprite spr_portrait = GetSpriteByName(currentCharName+"Portrait");
+
                 if (spr_portrait != null)
                 {
                     EnemyIndicators.transform.GetChild(0).GetComponent<Image>().sprite = spr_portrait;
@@ -329,6 +360,11 @@ public class DialogueManager : MonoBehaviour
     }
     public void GetNextPrompt(string NextPromptNameOverride = "")
     {
+        if(skip_text == false)
+        {
+            SkipAppearingText();
+            return;
+        }
         if(CheckTextIsExhausted())
         {   
             if(currentPrompt.NextPrompts.Count > 0)
@@ -341,7 +377,20 @@ public class DialogueManager : MonoBehaviour
                     currentPrompt = currentPhaseDictionary[NextPromptNameOverride];
                     currentPromptName = currentPrompt.Name;
                     UnityEngine.Debug.Log($"Moving to key {NextPromptNameOverride} prompt");
-                    if(currentPrompt.Tags.Contains("CrackMask")) AdvanceSpriteCounter(currentPromptName.Split('_')[0]);
+
+                    if (currentPrompt.Tags.Contains("CrackMask"))
+                    {
+                        GameManager.Instance.ReproduceSound("MaskBreaking");
+                        AdvanceSpriteCounter(currentPromptName.Split('_')[0]);    
+                    }
+                    else if (currentPrompt.Tags.Contains("BreakMask"))
+                    {
+                        GameManager.Instance.ReproduceSound("MaskBroken");
+                        GameManager.Instance.currentEnemyAnger = 0;
+                        GameManager.Instance.currentAmaraDetermination = GameManager.Instance.InitialAmaraDetermination;
+                        GameManager.Instance.UpdateUI();
+                        AdvanceSpriteCounter(currentPromptName.Split('_')[0]);    
+                    }
                 }
                 else if(currentPhaseDictionary.ContainsKey(currentPrompt.NextPrompts[0]))
                 {
@@ -350,6 +399,15 @@ public class DialogueManager : MonoBehaviour
                     currentPromptName = currentPrompt.Name;
                     UnityEngine.Debug.Log($"Moving to key {currentPrompt.NextPrompts[0]} prompt");
                     if(currentPrompt.Tags.Contains("CrackMask")) AdvanceSpriteCounter(currentPromptName.Split('_')[0]);
+
+                    if (currentPrompt.Tags.Contains("Scream")) GameManager.Instance.ReproduceSound("Scream");
+
+                    if (currentPrompt.Tags.Contains("ChangeScreen"))
+                    {
+                        GameManager.Instance.CurrentSpriteCounter+=1;
+                        GameManager.Instance.IntroBackground.GetComponent<Image>().sprite = 
+                        GameManager.Instance.IntroSprites[GameManager.Instance.CurrentSpriteCounter];
+                    }
                 }
                 else
                 {
@@ -363,11 +421,6 @@ public class DialogueManager : MonoBehaviour
                         }
                     }
                 }
-
-                // if(currentPromptName.Contains("Crack") || currentPrompt.Tags.Contains("CrackMask"))
-                // {
-                //     AdvanceSpriteCounter(currentCharName);
-                // }
             }
             else //return to previous choice
             {
@@ -410,8 +463,53 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    public float charDelay = 0.75f;
+    private bool skip_text;
+    System.Collections.IEnumerator MakeTextAppear(string fullText)
+    {
+        TMP_Text tmp_text = dialogueLayer.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        
+        tmp_text.text = fullText;
+        tmp_text.maxVisibleCharacters = 0;
+        skip_text = false;
+
+        foreach (char c in fullText)
+        {
+            if (skip_text)
+            {
+                tmp_text.maxVisibleCharacters = 
+                tmp_text.textInfo.characterCount;
+                yield break;
+            }
+
+            tmp_text.maxVisibleCharacters+=1;
+            yield return new WaitForSeconds(charDelay);
+        }
+        skip_text = true;
+    }
+
+    public void SkipAppearingText()
+    {
+        skip_text = true;
+    }
+
+    private UnityEngine.Vector2 initial_pos;
+    private bool initialised_pos = false;
+    private float acc_time = 0.0f;
     // Update is called once per frame
     void Update()
     {
+        if(initialised_pos == false)
+        {
+            initial_pos = dialogueLayer.transform.GetChild(2).GetComponent<RectTransform>().anchoredPosition;
+            initialised_pos = true;
+        }
+        if(currentPrompt != null && isInDialogue && currentPrompt.isChoice == false)
+        {
+            dialogueLayer.transform.GetChild(2).gameObject.SetActive(skip_text);
+            dialogueLayer.transform.GetChild(2).GetComponent<RectTransform>().anchoredPosition = 
+                initial_pos + new UnityEngine.Vector2(-5.0f + ((acc_time % 0.75f) / 0.75f) * 10.0f, 0.0f);
+            acc_time+=Time.deltaTime;
+        }
     }
 }

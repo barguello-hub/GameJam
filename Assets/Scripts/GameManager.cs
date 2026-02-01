@@ -22,24 +22,30 @@ public class GameManager : MonoBehaviour
     public GameObject dialogueLayer;
     public GameObject EnemyIndicators;
     public GameObject AmaraIndicators;
+    public List<Sprite> AmaraMoodSprites;
     public GameObject InventoryLayer;
     public GameObject Player;
     public GameObject BattleTitleImage;
+    public GameObject IntroBackground;
+    public List<Sprite> IntroSprites;
+    public int CurrentSpriteCounter = 0;
     private DialogueManager dialogueManager;
     public int InitialAmaraDetermination;
     public int currentAmaraDetermination;
     public List<InventoryPair> AmaraInventory;
-    private int currentEnemyAnger;
+    public int currentEnemyAnger;
     public bool isInBattle;
 
     public AudioClip idle_music;
     public AudioClip battle_music;
+    public AudioClip intro_music;
     private AudioSource audioSource;
     public AudioSource sfxSource;
 
     public AudioClip MaskBreakingSfx;
     public AudioClip MaskBrokenSfx;
     public AudioClip ChestOpenSfx;
+    public AudioClip ScreamSfx;
 
     public Sprite startTherapyTitle;
     public Sprite endTherapyTitle;
@@ -219,15 +225,7 @@ public class GameManager : MonoBehaviour
         // Esperar a que cargue la escena        
         yield return new WaitForSeconds(0.1f);                
         // Buscar referencias nuevamente (la escena cambió)       
-        //player = GameObject.FindGameObjectWithTag("Player");                
-        if (Player != null)        
-        {            
-            playerSpawnAnimation = Player.GetComponent<PlayerSpawnAnimation>();                        
-            if (playerSpawnAnimation != null)            
-            {                
-                playerSpawnAnimation.PlaySpawnAnimation();            
-            }        
-        }    
+        //player = GameObject.FindGameObjectWithTag("Player");                  
     }
 
     public int GetCurrentHealth()    
@@ -320,6 +318,16 @@ public class GameManager : MonoBehaviour
         audioSource.Play();
 
         BattleTitleImage.SetActive(true);
+
+        if(PhaseName == "IntroPhase")
+        {
+            BattleTitleImage.SetActive(false);
+            IntroBackground.SetActive(true);
+            IntroBackground.GetComponent<Image>().sprite = IntroSprites[CurrentSpriteCounter];
+            audioSource.clip = intro_music;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
     }
 
     public void ToggleInventory()
@@ -349,7 +357,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
 
         if(isInBattle)
@@ -358,11 +366,13 @@ public class GameManager : MonoBehaviour
             EnemyIndicators.SetActive(true);
             AmaraIndicators.transform.GetChild(1).GetComponent<Slider>().value = currentAmaraDetermination;
             EnemyIndicators.transform.GetChild(1).GetComponent<Slider>().value = currentEnemyAnger;
+            AmaraIndicators.transform.GetChild(2).GetComponent<Image>().sprite = AmaraMoodSprites[Mathf.Max(currentAmaraDetermination-1, 0)];
         }
         else
         {
             AmaraIndicators.SetActive(false);
             EnemyIndicators.SetActive(false);
+            IntroBackground.SetActive(false);
         }
 
         if(dialogueManager.isInDialogue)
@@ -431,10 +441,24 @@ public class GameManager : MonoBehaviour
         audioSource.clip = idle_music;
         audioSource.loop = true;
         audioSource.Play();
-
         BattleTitleImage.SetActive(true);
         anim_end_finished = false;
         acc_time = 0.0f;
+
+        if(dialogueManager.currentPhaseName == "IntroPhase")
+        {
+            IntroBackground.GetComponent<Image>().sprite = IntroSprites[3];
+            BattleTitleImage.SetActive(true);
+            BattleTitleImage.GetComponent<Image>().sprite = IntroSprites[3];
+            if (Player != null)        
+            {            
+                playerSpawnAnimation = Player.GetComponent<PlayerSpawnAnimation>();                        
+                if (playerSpawnAnimation != null)            
+                {                
+                    playerSpawnAnimation.PlaySpawnAnimation();            
+                }        
+            }  
+        }
     }
 
     void EndDialogue()
@@ -480,6 +504,9 @@ public class GameManager : MonoBehaviour
             case "MaskBroken":
             sfxSource.PlayOneShot(MaskBrokenSfx);
             break;
+            case "Scream":
+            sfxSource.PlayOneShot(ScreamSfx);
+            break;
         }
     }
 
@@ -488,6 +515,7 @@ public class GameManager : MonoBehaviour
     private bool anim_start_finished = false;
     private bool anim_end_finished = false;
     public float BattleStartLength;
+    private bool entered_intro = false;
     void Update()
     {
         if(isInBattle)
@@ -537,6 +565,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            if(entered_intro == false)
+            {
+                StartBattle("IntroPhase", gameObject);
+                entered_intro = true;
+                EnemyIndicators.SetActive(false);
+                AmaraIndicators.SetActive(false);
+            }
             if (!anim_end_finished)
             {
                 if(acc_time > BattleStartLength)
@@ -546,7 +581,11 @@ public class GameManager : MonoBehaviour
                     BattleTitleImage.SetActive(false);
                 }
 
-                if(currentAmaraDetermination <= 0 || currentEnemyAnger >= 3)
+                if(dialogueManager.currentPhaseName == "IntroPhase")
+                {
+                    BattleTitleImage.GetComponent<Image>().sprite = IntroSprites[3];
+                }
+                else if(currentAmaraDetermination <= 0 || currentEnemyAnger >= 3)
                 {  
                     BattleTitleImage.GetComponent<Image>().sprite = failTherapyTitle;
                 }
@@ -569,4 +608,5 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    
 }

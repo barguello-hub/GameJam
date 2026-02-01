@@ -84,7 +84,7 @@
       "Name": "Amara_03",
       "isChoice": true,
       "Texts": [
-        "Tus soldados empiezan a rumorear sobre ti .......",
+        "Tus Gubbinzs empiezan a rumorear sobre ti .......",
         "¡Oye! No soy ninguna enclenque... Solo tengo huesos pequeños",
         "¿Cómo que no? Dame una grapadora ahora mismo que te la lanzo",
         "Dar objeto"
@@ -101,8 +101,8 @@
       "Name": "Amara_03_Full",
       "Texts": [
         "Y tú, Valarth? ¿Puedes seguir soportando este peso? ¿El peso que llevas en el corazón?",
-        "Tus soldados no sólo rumorean, también se preocupan por ti.",
-        "Tus soldados empiezan a rumorear sobre ti. Y tu padre no estaría orgulloso."
+        "Tus Gubbinzs no sólo rumorean, también se preocupan por ti.",
+        "Tus Gubbinzs empiezan a rumorear sobre ti. Y tu padre no estaría orgulloso."
       ],
       "NextPrompts": [
         "Valarth_03_Crack"
@@ -205,9 +205,9 @@
     {
         "Name": "Valarth_Interlude_00_01",
         "Texts": ["Ah, ¿o sea que ha sido cosa tuya?",
-        "Pues flaco favor me has hecho, el único atontado que tenia para cubrir la vigía nocturna me ha pedido un cambio, y mi soldado más aguerrido ha desertado y huido con su amante.",
+        "Pues flaco favor me has hecho, el único atontado que tenia para cubrir la vigía nocturna me ha pedido un cambio, y mi Gubbinz más aguerrido ha desertado y huido con su amante.",
         "Ahh... (Valarth se frota la frente, preocupada)",
-        "Todo esto es culpa de Padre... y esos malditos soldados, no hacen otra cosa que hablar y conspirar."
+        "Todo esto es culpa de Padre... y esos malditos Gubbinzs, no hacen otra cosa que hablar y conspirar."
         ],
         "NextPrompts": ["Amara_05"]
     },
@@ -217,7 +217,7 @@
       "isChoice": true,
       "Texts": [
         "¿Padre? ¿Tu padre?",
-        "Ah, ya veo, tienes miedo de que tus soldados se subleven.",
+        "Ah, ya veo, tienes miedo de que tus Gubbinzs se subleven.",
         "Dar objeto"
       ],
       "NextPrompts": [
@@ -270,7 +270,7 @@
         "Texts": ["JAJAJA, me empiezas a caer bien, humana! Estoy sorprendida, haces que me piense lo de matarte.",
         "No todo lo que se dice de mi padre es cierto, pero tampoco todo lo que se dice de mí..."],
         "NextPrompts": ["Valarth_Interlude_01_00"],
-        "Tags": ["CrackMask"]
+        "Tags": ["BreakMask"]
     },
 
     {
@@ -288,7 +288,7 @@
     {
         "Name": "Valarth_Interlude_01_02",
         "Texts": [" Son muchas campañas con murmullos, indirectas de los comandantes de rango inferior..."
-        ,"hasta los soldados empiezan a mofarse. Lo quiera o no me está afectando, pero... hay algo que... (Valarth se detiene, sin decir nada más)"],
+        ,"hasta los Gubbinzs empiezan a mofarse. Lo quiera o no me está afectando, pero... hay algo que... (Valarth se detiene, sin decir nada más)"],
         "NextPrompts": ["Amara_07"]
     },
 
@@ -364,7 +364,7 @@
     
     {
         "Name": "Amara_09_Full_00",
-        "Texts": ["claramente estás triste por otra cosa, quizá tus soldados tienen razón, quieres saber lo que me han dicho realmente de ti?"],
+        "Texts": ["claramente estás triste por otra cosa, quizá tus Gubbinzs tienen razón, quieres saber lo que me han dicho realmente de ti?"],
         "NextPrompts": ["Valarth_09_Bad_02"]
     },
     {
@@ -469,7 +469,7 @@
         "Texts": ["(Valarth se quita el harapo que lleva, y con gran destreza se pone el vestido)",
         "MADRE MIA MADRE MIA, ME QUEDA DIVINO, DI-VI-NO"],
         "NextPrompts": ["Amara_Outro_00"],
-        "Tags":["CrackMask"]
+        "Tags":["BreakMask"]
     },
 
     {
@@ -675,10 +675,10 @@
     {
         "Name": "Spix_06_Good_00",
         "Texts": ["Ahh... es la primera vez que me corrige alguien y no pierdo los nervios. Eres buena!",
-        "Ahora mismo voy a hablar con la jefa, me daba miedo pedirle un cambio, porque últimamente está muy rara, más pirascible de lo normal, y como distante y taciturna...",
+        "Ahora mismo voy a hablar con la jefa, me daba miedo pedirle un cambio, porque últimamente está muy rara, más pirascible de lo normal, y como distante y casiturna...",
         "Por cierto, te queda algún palito de esos?"],
         "NextPrompts": ["Amara_Outro_00"],
-        "Tags":["CrackMask"]
+        "Tags":["BreakMask"]
     },
 
     {
@@ -707,7 +707,7 @@
   "SecondEnemyPhase": [
    {
 
-        "Name": "Soldado_00",
+        "Name": "Gubbinz_00",
         "Texts": [
             "Alto a la Guardia Goblin!"
         ],
@@ -725,21 +725,21 @@
             "¿Por qué todo el mundo me quiere convertir en un pincho moruno?"
         ],
         "NextPrompts": [
-            "Soldado_01_Bad_00",
-            "Soldado_01_Bad_01",
-            "Soldado_01_Good_00"
+            "Gubbinz_01_Bad_00",
+            "Gubbinz_01_Bad_01",
+            "Gubbinz_01_Good_00"
         ]
    },
    {
         "Name": "Amara_02",
         "isChoice":true,
         "Texts": [
-            "Dar un golpe de vara al soldado",
-            "Vaya... ese razonamiento es bastante profundo para un soldado raso."
+            "Dar un golpe de vara al Gubbinz",
+            "Vaya... ese razonamiento es bastante profundo para un Gubbinz raso."
         ],
         "NextPrompts": [
-            "Soldado_02_Bad_00",
-            "Soldado_02_Good_00"
+            "Gubbinz_02_Bad_00",
+            "Gubbinz_02_Good_00"
         ]
    },
    {
@@ -750,20 +750,20 @@
             "Claro, eres super especial."
         ],
         "NextPrompts": [
-            "Soldado_03_Good_00",
-            "Soldado_03_Bad_00"
+            "Gubbinz_03_Good_00",
+            "Gubbinz_03_Bad_00"
         ]
    },
    {
         "Name": "Amara_04",
         "isChoice":true,
         "Texts": [
-            "Los soldados goblin no tienen por qué ser así...",
+            "Los Gubbinzs goblin no tienen por qué ser así...",
             "mirar directamente a los ojos y sonreir"
         ],
         "NextPrompts": [
-            "Soldado_04_Bad_00",
-            "Soldado_04_Good_00"
+            "Gubbinz_04_Bad_00",
+            "Gubbinz_04_Good_00"
         ]
    },
    {
@@ -771,11 +771,11 @@
         "isChoice":true,
         "Texts": [
             "Poner la mano sobre el hombro del goblin",
-            "¿Quién es ese soldado?"
+            "¿Quién es ese Gubbinz?"
         ],
         "NextPrompts": [
-            "Soldado_05_Good_00",
-            "Soldado_05_Bad_00"
+            "Gubbinz_05_Good_00",
+            "Gubbinz_05_Bad_00"
         ]
    },
     {
@@ -786,86 +786,86 @@
             "(Abrazar) Suéltalo pequeño, este es un espacio seguro"
         ],
         "NextPrompts": [
-            "Soldado_06_Bad_00",
-            "Soldado_06_Good_00"
+            "Gubbinz_06_Bad_00",
+            "Gubbinz_06_Good_00"
         ]
     },
 
     {
-        "Name": "Soldado_01_Bad_00",
+        "Name": "Gubbinz_01_Bad_00",
         "Texts": ["Vas a necesitar algo más que eso"]
    },
    {
-        "Name": "Soldado_01_Bad_01",
+        "Name": "Gubbinz_01_Bad_01",
         "Texts": ["El que tiene la espada aqui soy yo..."]
    },
    {
-        "Name": "Soldado_01_Good_00",
+        "Name": "Gubbinz_01_Good_00",
         "Texts": ["Será porque vas por ahi con esa superioridad moral..."],
         "NextPrompts": ["Amara_02"]
    },
 
    {
-        "Name": "Soldado_02_Bad_00",
-        "Texts": ["El soldado detiene el golpe con su espada."]
+        "Name": "Gubbinz_02_Bad_00",
+        "Texts": ["El Gubbinz detiene el golpe con su espada."]
    },
    {
-        "Name": "Soldado_02_Good_00",
+        "Name": "Gubbinz_02_Good_00",
         "Texts": ["Tú crees..? Hmm. Sí, siempre he creido que tengo otra sensibilidad..."],
         "NextPrompts": ["Amara_03"],
         "Tags":["CrackMask"]
    },
 
       {
-        "Name": "Soldado_03_Bad_00",
-        "Texts": ["El soldado se queda callado (...)"]
+        "Name": "Gubbinz_03_Bad_00",
+        "Texts": ["El Gubbinz se queda callado (...)"]
    },
    {
-        "Name": "Soldado_03_Good_00",
-        "Texts": ["Los soldados goblin tenemos que ser despiadados, despojarnos de todo sentimiento hacia el resto..."],
+        "Name": "Gubbinz_03_Good_00",
+        "Texts": ["Los Gubbinzs goblin tenemos que ser despiadados, despojarnos de todo sentimiento hacia el resto..."],
         "NextPrompts": ["Amara_04"]
    },
 
       {
-        "Name": "Soldado_04_Bad_00",
-        "Texts": ["El soldado se queda callado (...)"]
+        "Name": "Gubbinz_04_Bad_00",
+        "Texts": ["El Gubbinz se queda callado (...)"]
    },
    {
-        "Name": "Soldado_04_Good_00",
-        "Texts": ["pero... yo no soy asi, no señor, yo soy distinto al resto, y los brutos de mis compañeros pueden irse a freir raíces de mandrágora...","... Solo hay un soldado que me entiende."],
+        "Name": "Gubbinz_04_Good_00",
+        "Texts": ["pero... yo no soy asi, no señor, yo soy distinto al resto, y los brutos de mis compañeros pueden irse a freir raíces de mandrágora...","... Solo hay un Gubbinz que me entiende."],
         "NextPrompts": ["Amara_05"],
         "Tags":["CrackMask"]
    },
 
     {
-        "Name": "Soldado_05_Bad_00",
-        "Texts": ["El soldado se queda callado (...)"]
+        "Name": "Gubbinz_05_Bad_00",
+        "Texts": ["El Gubbinz se queda callado (...)"]
    },
    {
-        "Name": "Soldado_05_Good_00",
+        "Name": "Gubbinz_05_Good_00",
         "Texts": ["Los ojos del goblin se convierten en una vidriera brillante, humedecida por las lágrimas..."],
-        "NextPrompts": ["Soldado_Interludio_00"]
+        "NextPrompts": ["Gubbinz_Interludio_00"]
    },
 
     {
-        "Name": "Soldado_Interludio_00",
+        "Name": "Gubbinz_Interludio_00",
         "Texts": ["POR QUÉ? POR QUÉ TODOS EN ESTE CLAN SON TAN BÁRBAROS? Estoy harto, huiré con mi Bastian, él siempre me escucha y me entiende..."," mi querido Bastian..."],
         "NextPrompts": ["Amara_06"]
    },
 
      {
-        "Name": "Soldado_06_Bad_00",
+        "Name": "Gubbinz_06_Bad_00",
         "Texts": ["Shht, no hables tan alto idiota!"]
    },
    {
-        "Name": "Soldado_06_Good_00",
+        "Name": "Gubbinz_06_Good_00",
         "Texts": ["(Continua sollozando) Dios mio, qué ciego he estado, todo este tiempo, aguantando este estilo de vida, cuando Bastian y yo queríamos lo mismo:"," Una vida tranquila y una casita con vistas al lago junto a Junior, nuestro Yorkshire ."],
-        "NextPrompts": ["Soldado_Outro_00"],
-        "Tags":["CrackMask"]
+        "NextPrompts": ["Gubbinz_Outro_00"],
+        "Tags":["BreakMask"]
    },
 
     {
-        "Name": "Soldado_Outro_00",
+        "Name": "Gubbinz_Outro_00",
         "Texts": ["BASTIAN MI AMOOOOOR, COGE A JUNIOR QUE NOS LARGAMOS DE AQUÍ !!!","Ah, por cierto, a la jefa se le cayó esto el otro dia...","(Recibes una bonita blusa. Parece de calidad)"],
         "NextPrompts": [""],
         "Tags":["End"]
@@ -875,11 +875,16 @@
   ],
   "StorePhase": [
     {
+        "Name": "Mochi_00",
+        "Texts": ["Bienvenida a la tienda de Mochi.. Mochi Soy yo","Por favor no te metas al agua, que es muy díficil de de animar...."],
+        "NextPrompts": ["Amara_01"],
+        "Tags":["Start"]
+   },
+    {
         "Name": "Amara_01",
         "isChoice":true,
         "Texts": ["Comprar regaliz a cambio de objeto"],
-        "NextPrompts": ["Mochi_01"],
-        "Tags":["Start"]
+        "NextPrompts": ["Mochi_01"]
    },
    {
         "Name": "Mochi_01",
@@ -887,5 +892,62 @@
         "NextPrompts": [""],
         "Tags":["End"]
    }
+  ],
+
+  "IntroPhase":[
+    {
+        "Name":"Paladin_00",
+        "Texts":["No lucha, no sabe curar… de qué nos sirve?"],
+        "NextPrompts":["Arquero_01"],
+        "Tags":["Start"]
+    },
+    {
+        "Name":"Arquero_01",
+        "Texts":["Aquí necesitamos fuerza, no palabras, elfa."],
+        "NextPrompts":["???_01"]
+        ,"Tags":["Scream"]
+    },
+    {
+        "Name":"???_01",
+        "Texts":["Amara no lanza hechizos.",
+                "Solo ve lo que otros prefieren no mirar."],
+        "NextPrompts":["???_01_00"]
+        
+
+    },
+    {
+        "Name":"???_01_00",
+        "Texts":["Exiliada de su grupo, Amara despierta en otra parte de la mazmorra."],
+        "NextPrompts":["Amara_00"]
+        ,"Tags":["ChangeScreen"]
+
+    },
+    {
+        "Name":"Amara_00",
+        "Texts":["Siempre pasa lo mismo…","Cuando las cosas se rompen por dentro, nadie quiere hacerse cargo."],
+        "NextPrompts":["???_02"]
+        
+    },
+    {
+        "Name":"???_02",
+        "Texts":["Las criaturas de esta mazmorra no son solo colmillos y garras.",
+                    "Todos tienen su máscara."],
+        "NextPrompts":["Amara_01"]
+        ,"Tags":["ChangeScreen"]
+    },
+        {
+        "Name":"Amara_01",
+        "Texts":["Si no puedo luchar…"
+        ,"entonces haré que se vean a sí mismos."],
+        "NextPrompts":["???_03"],
+        "Tags":["ChangeScreen"]
+    },
+    {
+        "Name":"???_03",
+        "Texts":["TERAPIAS Y MAZMORRAS",
+        "Rompe máscaras. Cura lo invisible."],
+        "NextPrompts":[""],
+        "Tags":["End"]
+    }
   ]
 }

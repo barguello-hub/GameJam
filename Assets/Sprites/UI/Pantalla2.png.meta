@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e2376f44020accd449904970bed1f070
+guid: bc799996e544b8b46a50a4c0386192da
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3278443726067491104
-    second: SoldadoRetrato_0
+      213: -3284904371933287814
+    second: Pantalla2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SoldadoRetrato_0
+      name: Pantalla2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 219
-        height: 258
+        width: 1280
+        height: 768
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0ee93a31dc0a082d0800000000000000
-      internalID: -3278443726067491104
+      spriteID: a7ae9cdb0eca962d0800000000000000
+      internalID: -3284904371933287814
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SoldadoRetrato_0: -3278443726067491104
+      Pantalla2_0: -3284904371933287814
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
