@@ -65,6 +65,50 @@ public class GameManager : MonoBehaviour
         UpdateUI();
     }
 
+    public bool HasObjects()
+    {
+        foreach(InventoryPair pair in AmaraInventory)
+        {
+            if(pair.count > 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public string GetRelevantObject()
+    {
+        if(!HasObjects()) return "Nada";
+        List<string> available_objects = new List<string>();
+        foreach(InventoryPair pair in AmaraInventory)
+        {
+            if(pair.count > 0)
+            {
+                available_objects.Add(pair.name);
+            }
+        }
+
+        switch(dialogueManager.currentPhaseName)
+        {
+            case "FinalBossPhase":
+                if(available_objects.Contains("Vestido Rojo"))
+                {
+                    return "Vestido Rojo";
+                }
+                break;
+            case "StorePhase":
+                if(available_objects.Contains("Oro"))
+                {
+                    return "Oro";
+                }
+                break;
+            default:
+                return available_objects[0];
+        }
+        return available_objects[0];
+    }
+
     public void StartBattle(string PhaseName)
     {
         dialogueManager.isInDialogue = true;
