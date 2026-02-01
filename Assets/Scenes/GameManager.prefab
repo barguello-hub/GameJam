@@ -55,12 +55,12 @@ MonoBehaviour:
   - name: Oro
     object_sprite: {fileID: -5122786757355938225, guid: 6bcf1de9d56ba40a1aca9e1a860a69df, type: 3}
     count: 0
-  - name: Vestido Rojo
-    object_sprite: {fileID: -5122786757355938225, guid: 6bcf1de9d56ba40a1aca9e1a860a69df, type: 3}
+  - name: Blusa Roja
+    object_sprite: {fileID: -3548783339771130264, guid: df89dc13300d91b48a52a38299ed797a, type: 3}
     count: 0
-  - name: "Poci\xF3n"
-    object_sprite: {fileID: -5122786757355938225, guid: 6bcf1de9d56ba40a1aca9e1a860a69df, type: 3}
+  - name: "Rataf\xEDa"
+    object_sprite: {fileID: -9064446687474135519, guid: 08c1d9511dd70ad41b037efeaf5f7ae3, type: 3}
     count: 0
   - name: Palito de Regaliz
-    object_sprite: {fileID: -5122786757355938225, guid: 6bcf1de9d56ba40a1aca9e1a860a69df, type: 3}
+    object_sprite: {fileID: -7193182309715182240, guid: 0204fc8b20d4a0d4086c83c04ea18204, type: 3}
     count: 0

@@ -86,7 +86,7 @@ public class DialogueManager : MonoBehaviour
             if (Phases.FinalBossDict.ContainsKey(prompt.Name))
             {
                 UnityEngine.Debug.LogWarning(
-                    $"Duplicate PromptName found: {prompt.Name}"
+                    $"Duplicate PromptName found in Final Boss: {prompt.Name}"
                 );
                 continue;
             }
@@ -94,7 +94,39 @@ public class DialogueManager : MonoBehaviour
             Phases.FinalBossDict.Add(prompt.Name, prompt);
         }
 
-        UnityEngine.Debug.Log($"Dictionary built with {Phases.FinalBossDict.Count} prompts");
+        UnityEngine.Debug.Log($"Boss Dictionary built with {Phases.FinalBossDict.Count} prompts");
+
+        Phases.FirstEnemyDict = new Dictionary<string, DialoguePrompt>();
+        foreach (var prompt in Phases.FirstEnemyPhase)
+        {
+            if (Phases.FirstEnemyDict.ContainsKey(prompt.Name))
+            {
+                UnityEngine.Debug.LogWarning(
+                    $"Duplicate PromptName found in First Enemy: {prompt.Name}"
+                );
+                continue;
+            }
+
+            Phases.FirstEnemyDict.Add(prompt.Name, prompt);
+        }
+
+        UnityEngine.Debug.Log($"First Enemy Dictionary built with {Phases.FirstEnemyDict.Count} prompts");
+
+        Phases.SecondEnemyDict = new Dictionary<string, DialoguePrompt>();
+        foreach (var prompt in Phases.SecondEnemyPhase)
+        {
+            if (Phases.SecondEnemyDict.ContainsKey(prompt.Name))
+            {
+                UnityEngine.Debug.LogWarning(
+                    $"Duplicate PromptName found in Second Enemy: {prompt.Name}"
+                );
+                continue;
+            }
+
+            Phases.SecondEnemyDict.Add(prompt.Name, prompt);
+        }
+
+        UnityEngine.Debug.Log($"Second Enemy Dictionary built with {Phases.SecondEnemyDict.Count} prompts");
     }
     
     public void UpdateDialogueVariables(string PhaseName)
@@ -202,7 +234,7 @@ public class DialogueManager : MonoBehaviour
 
                 TextMeshProUGUI choice_text = SpawnedChoices[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
                 choice_text.text = text;
-                
+
                 if(text.Contains("objeto"))
                 {
                     if(GameManager.Instance.HasObjects())
@@ -239,11 +271,6 @@ public class DialogueManager : MonoBehaviour
                 //set name for character
                 currentCharName = currentPromptName.Split('_')[0];
                 dialogueLayer.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = currentCharName;
-                
-                if(currentPromptName.Contains("Crack") || currentPrompt.Tags.Contains("CrackMask"))
-                {
-                    AdvanceSpriteCounter(currentCharName);
-                }
 
                 Sprite spr = GetSpriteByName(currentCharName);
                 if (spr != null)
@@ -302,7 +329,20 @@ public class DialogueManager : MonoBehaviour
                 else
                 {
                     UnityEngine.Debug.Log($"The key {currentPrompt.NextPrompts[0]} wasn't found! in dictionary");
+
+                    foreach(string tag in currentPrompt.Tags)
+                    {
+                        if(string.Equals(tag, "end", System.StringComparison.OrdinalIgnoreCase))
+                        {
+                            GameManager.Instance.EndBattle();
+                        }
+                    }
                 }
+
+                // if(currentPromptName.Contains("Crack") || currentPrompt.Tags.Contains("CrackMask"))
+                // {
+                //     AdvanceSpriteCounter(currentCharName);
+                // }
             }
             else //return to previous choice
             {
@@ -313,7 +353,12 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        UpdateText(); 
+        UpdateText();
+        if(CheckTextIsExhausted() && (currentPromptName.Contains("Crack") || currentPrompt.Tags.Contains("CrackMask")))
+        {
+            AdvanceSpriteCounter(currentCharName);
+        } 
+
         //DEBUG
         // Invoke(nameof(GetNextPrompt),2.0f);
     }
@@ -343,29 +388,5 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (isInDialogue)
-        // {
-        //     if(currentPrompt == null)
-        //     {                
-        //         UpdateDialogueVariables(currentPhaseName);
-        //         foreach(DialoguePrompt prompt in  currentPhase)
-        //         {
-        //             foreach(string tag in prompt.Tags)
-        //             {
-        //                 if(string.Equals(tag, "start", System.StringComparison.OrdinalIgnoreCase))
-        //                 {
-        //                     currentPrompt = prompt;
-        //                     currentPromptName = currentPrompt.Name;
-        //                     UpdateText();
-        //                     waitForInput = true;
-                            
-        //                     //DEBUG
-        //                     // Invoke(nameof(GetNextPrompt),2.0f);
-        //                     break;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }   
     }
 }

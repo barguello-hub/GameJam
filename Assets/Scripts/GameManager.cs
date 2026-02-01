@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using System.Numerics;
 
 [Serializable]
 public class InventoryPair
@@ -17,15 +18,17 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject Canvas;
     public GameObject TopLayer;
+    public GameObject dialogueLayer;
     public GameObject EnemyIndicators;
     public GameObject AmaraIndicators;
     public GameObject InventoryLayer;
+    public GameObject Player;
     private DialogueManager dialogueManager;
     public int InitialAmaraDetermination;
     public int currentAmaraDetermination;
     public List<InventoryPair> AmaraInventory;
     private int currentEnemyAnger;
-    private bool isInBattle;
+    public bool isInBattle;
 
     public static GameManager Instance { get; private set; }
 
@@ -52,6 +55,10 @@ public class GameManager : MonoBehaviour
         isInBattle = false;
         currentAmaraDetermination = InitialAmaraDetermination;
         UpdateUI();
+
+        Screen.SetResolution(1280, 768, false);
+        Screen.fullScreenMode = FullScreenMode.Windowed;
+        initial_pos = dialogueLayer.GetComponent<RectTransform>().anchoredPosition;
 
         //DEBUG
         // StartBattle("FinalBossPhase");
@@ -92,15 +99,21 @@ public class GameManager : MonoBehaviour
         switch(dialogueManager.currentPhaseName)
         {
             case "FinalBossPhase":
-                if(available_objects.Contains("Vestido Rojo"))
+                if(available_objects.Contains("Blusa Roja"))
                 {
-                    return "Vestido Rojo";
+                    return "Blusa Roja";
                 }
                 break;
             case "StorePhase":
                 if(available_objects.Contains("Oro"))
                 {
                     return "Oro";
+                }
+                break;
+            case "FirstEnemyPhase":
+                if(available_objects.Contains("Palito de Regaliz"))
+                {
+                    return "Palito de Regaliz";
                 }
                 break;
             default:
@@ -111,12 +124,17 @@ public class GameManager : MonoBehaviour
 
     public void StartBattle(string PhaseName)
     {
+        if(isInBattle == true) return;
         dialogueManager.isInDialogue = true;
         dialogueManager.currentPhaseName = PhaseName;
         dialogueManager.currentPrompt = null;
         dialogueManager.GetFirstPrompt();
         currentEnemyAnger = 0;
         isInBattle = true;
+        anim_finished = false;
+        acc_time = 0.0f;
+        // Player.GetComponent<PlayerMovement>().enabled = false;
+        Player.GetComponent<PlayerMovement>().moveSpeed = 0.0f;
         UpdateUI();
     }
 
@@ -189,9 +207,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void EndBattle()
+    public void EndBattle()
     {
         isInBattle = false;
+        Player.GetComponent<PlayerMovement>().moveSpeed = 3.0f;
         EndDialogue();
         UpdateUI();
     }
@@ -214,12 +233,45 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private float acc_time = 0.0f;
+    private UnityEngine.Vector2 initial_pos;
+    private bool anim_finished = false;
+    public float BattleStartLength;
     void Update()
     {
         if(isInBattle)
         {
-            
-        }else
+            if(!anim_finished)
+            {
+                acc_time+=Time.deltaTime;
+
+                float t = acc_time / BattleStartLength;
+                t = Mathf.SmoothStep(1f, 0f, t);
+
+                RectTransform transform = TopLayer.GetComponent<RectTransform>();
+                transform.sizeDelta = new UnityEngine.Vector2(0.0f, t * 2000.0f);
+
+
+                if(acc_time > BattleStartLength)
+                {
+                    anim_finished = true;
+                    acc_time = 0.0001f;
+                }
+                // transform = dialogueLayer.GetComponent<RectTransform>();
+                // transform.anchoredPosition = initial_pos + new UnityEngine.Vector2(0.0f, MathF.Sin(acc_time * 1.5f) * 12.5f);
+            }
+            else
+            {
+                acc_time+=Time.deltaTime;
+                RectTransform transform = TopLayer.GetComponent<RectTransform>();
+                transform.sizeDelta = new UnityEngine.Vector2(0.0f, MathF.Sin(acc_time * 1.5f) * 25.0f);
+                transform = dialogueLayer.GetComponent<RectTransform>();
+                transform.anchoredPosition = initial_pos + new UnityEngine.Vector2(0.0f, MathF.Sin(acc_time * 1.5f) * 12.5f);
+            }
+
+
+        }
+        else
         {
             // StartBattle("FinalBossPhase");
         }

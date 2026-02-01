@@ -18,7 +18,7 @@
       "NextPrompts": [
         "Valarth_01_Good",
         "Valarth_01_Bad",
-        "Valarth_01_Bad_Object"
+        "Valarth_Bad_Object"
       ]
     },
 
@@ -40,9 +40,13 @@
     },
 
     {
-      "Name": "Valarth_01_Bad_Object",
-      "Texts": ["APARTA TU BASURA HUMANA DE MI CARA"],
-      "NextPrompts": ["Amara_01"]
+      "Name": "Valarth_Bad_Object",
+      "Texts": ["APARTA TU BASURA HUMANA DE MI CARA"]
+    },
+
+    {
+      "Name": "Valarth_Bad_ObjectAlt",
+      "Texts": ["¡¿Creíste que podrías comprarme con eso?!"]
     },
 
     {
@@ -56,7 +60,7 @@
       "NextPrompts": [
         "Valarth_02_Neutral",
         "Valarth_02_Bad",
-        "Valarth_02_Object"
+        "Valarth_Bad_Object"
       ]
     },
 
@@ -64,7 +68,7 @@
       "Name": "Valarth_02_Neutral",
       "Texts": [
         "¡Pues claro que no!",
-        "Una enclenque como tú no puede llevar este imperio"
+        "Una enclenque como tú no podría soportar el peso de la burocracia orca! JAJAJA"
       ],
       "NextPrompts": ["Amara_03"]
     },
@@ -77,25 +81,31 @@
     },
 
     {
-      "Name": "Valarth_02_Object",
-      "Texts": ["¡¿Creíste que podrías comprarme con eso?!"],
-      "NextPrompts": ["Amara_02"]
-    },
-
-    {
       "Name": "Amara_03",
       "isChoice": true,
       "Texts": [
-        "Tus soldados empiezan a rumorear sobre ti. Y tu padre no estaría orgulloso.",
+        "Tus soldados empiezan a rumorear sobre ti .......",
         "¡Oye! No soy ninguna enclenque... Solo tengo huesos pequeños",
         "¿Cómo que no? Dame una grapadora ahora mismo que te la lanzo",
         "Dar objeto"
       ],
       "NextPrompts": [
-        "Valarth_03_Crack",
+        "Amara_03_Full",
         "Valarth_03_Bad",
         "Valarth_03_Bad",
-        "Valarth_03_Object"
+        "Valarth_Bad_ObjectAlt"
+      ]
+    },
+
+    {
+      "Name": "Amara_03_Full",
+      "Texts": [
+        "Y tú, Valarth? ¿Puedes seguir soportando este peso? ¿El peso que llevas en el corazón?",
+        "Tus soldados no sólo rumorean, también se preocupan por ti.",
+        "Tus soldados empiezan a rumorear sobre ti. Y tu padre no estaría orgulloso."
+      ],
+      "NextPrompts": [
+        "Valarth_03_Crack"
       ]
     },
 
@@ -103,9 +113,12 @@
       "Name": "Valarth_03_Crack",
       "Texts": [
         "¡Esos bocazas!",
-        "Por los cuernos de mi padre, voy a..."
+        "Por los cuernos de mi padre, voy a machacar a esos gusanos y voy a hacerme un bolso con sus pieles...",
+        "¿Han dicho algo de mí?"
       ],
-      "NextPrompts": ["Amara_04"]
+      "NextPrompts": ["Amara_04"],
+      "Tags": ["CrackMask"]
+      
     },
 
     {
@@ -113,12 +126,6 @@
       "Texts": [
         "No me servirías ni de bufón, la verdad..."
       ]
-    },
-
-    {
-      "Name": "Valarth_03_Object",
-      "Texts": ["APARTA TU BASURA HUMANA DE MI CARA"],
-      "NextPrompts": ["Amara_03"]
     },
 
     {
@@ -131,10 +138,32 @@
         "Dar objeto"
       ],
       "NextPrompts": [
-        "Valarth_04_Crack",
+        "Amara_04_Full",
         "Valarth_04_Bad",
-        "Valarth_04_Defensive",
-        "Valarth_04_Object"
+        "Amara_04_Def_Full",
+        "Valarth_Bad_ObjectAlt"
+      ]
+    },
+
+    {
+      "Name": "Amara_04_Def_Full",
+      "isChoice": false,
+      "Texts": [
+        "Que piensas demasiado las cosas para ser una caudilla orca."
+      ],
+      "NextPrompts": [
+        "Valarth_04_Defensive"
+      ]
+    },
+
+    {
+      "Name": "Amara_04_Full",
+      "isChoice": false,
+      "Texts": [
+        "Y los sinónimos siguen de aquí al corazón de la mazmorra, querida."
+      ],
+      "NextPrompts": [
+        "Valarth_04_Crack"
       ]
     },
 
@@ -142,9 +171,14 @@
       "Name": "Valarth_04_Crack",
       "Texts": [
         "Bueno, yo, eh...",
-        "¡NO ES VERDAD! Me sentó mal aquella semana"
+        "Bueno, yo, eh... ¡NO ES VERDAD!",
+        "Me sentó mal aquel estofado de oruga picante, estoy harta de decirlo.",
+        "...Además, qué le importará al resto como esté Valarth?",
+        "Valarth es fuerte, ¡siempre lo ha sido! Son más de 50 años al mando.",
+        "Ya se me pasará, ¡maldita sea! Y tú, elfa, eres valiente por preguntar cosas tan... humanas. Los orcos no hablamos de dolor. Solo lo provocamos."
       ],
-      "NextPrompts": ["Interlude_03"]
+      "NextPrompts": ["Amara_Interlude_00_00"],
+      "Tags": ["CrackMask"]
     },
 
     {
@@ -156,107 +190,680 @@
       "Name": "Valarth_04_Defensive",
       "Texts": [
         "¿Blanda yo?",
-        "JAJAJA Estas manos te pueden partir en dos"
+        "JAJAJA Estas manos te pueden partir como una ramita"
       ]
     },
 
     {
-      "Name": "Valarth_04_Object",
-      "Texts": ["¡¿Creíste que podrías comprarme con eso?!"],
-      "NextPrompts": ["Amara_04"]
+        "Name": "Amara_Interlude_00_00",
+        "Texts": ["Venga, Valarth, vengo de hablar con tus dos secuaces y los dos han sucumbido a mis encantos \"psicologiles\".",
+        "Hasta he conseguido que uno salga del armario.",
+        "Todo lo que me cuentas parece agotador, y monotema... ¿no hay nada en tu vida fuera de la guerra, el campamento, y el mando orco?"],
+        "NextPrompts": ["Valarth_Interlude_00_01"]
     },
 
     {
-      "Name": "Interlude_03",
-      "Texts": [
-        "De pequeña hice una amiga humana",
-        "Vaya, de pronto tu padre ya no es el demonio supremo",
-        "Bíceps. Pero sí, Krushkorr era una figura complicada",
-        "En fin, lo mejor que me llevé de esa época fue el odio"
-      ],
-      "NextPrompts": ["Amara_05"]
+        "Name": "Valarth_Interlude_00_01",
+        "Texts": ["Ah, ¿o sea que ha sido cosa tuya?",
+        "Pues flaco favor me has hecho, el único atontado que tenia para cubrir la vigía nocturna me ha pedido un cambio, y mi soldado más aguerrido ha desertado y huido con su amante.",
+        "Ahh... (Valarth se frota la frente, preocupada)",
+        "Todo esto es culpa de Padre... y esos malditos soldados, no hacen otra cosa que hablar y conspirar."
+        ],
+        "NextPrompts": ["Amara_05"]
     },
 
-    {
+        {
       "Name": "Amara_05",
       "isChoice": true,
       "Texts": [
-        "Ajá! Me acabas de llamar AMIGA! Soy LA PUTA AMIGA",
-        "Entonces lo del estofado de oruga era una milonga",
-        "Creo que nuestro abrazo no es una excepción...",
+        "¿Padre? ¿Tu padre?",
+        "Ah, ya veo, tienes miedo de que tus soldados se subleven.",
         "Dar objeto"
       ],
       "NextPrompts": [
-        "Valarth_05_Overreact",
-        "Valarth_05_Panic",
-        "Valarth_05_Open",
-        "Valarth_05_Object"
+        "Valarth_05_Good",
+        "Valarth_05_Bad",
+        "Valarth_Bad_ObjectAlt"
       ]
     },
 
     {
-      "Name": "Valarth_05_Overreact",
-      "Texts": ["Te has venido muy arriba, \"guapi\""]
+        "Name": "Valarth_05_Good",
+        "Texts": ["No es solo mi padre, es el legendario Koronel Krusshkor, vencedor de mas de 3000 batallas, conquistador de pueblos, de épicos biceps,",
+        "de durísima y cuadrada mandibula, de voz imponente como un troll, ah! y me olvido de...",
+        "(Valarth está ensimismada hablando y dando todo tipo de detalles de Krusshkor)"],
+        "NextPrompts": ["Amara_06"]
+    },
+    {
+        "Name": "Valarth_05_Bad",
+        "Texts": ["MIEDO?! Yo no conozco el miedo! YO SOY el miedo!"]
     },
 
     {
-      "Name": "Valarth_05_Panic",
-      "Texts": ["NO! No quiero más rumores!"]
+        "Name": "Amara_06",
+        "isChoice": true,
+        "Texts": [
+            "Te brillan los ojos cuando hablas de tu padre, se nota que le tienes aprecio.",
+            "Tu padre parece un hueso duro de roer.",
+            "No me acabo de creer todo eso...",
+            "Dar objeto"
+        ],
+        "NextPrompts": [
+            "Valarth_06_Bad_01",
+            "Valarth_06_Bad_01",
+            "Amara_06_Full",
+            "Valarth_Bad_ObjectAlt"
+        ]
+    },
+    {
+        "Name": "Valarth_06_Bad_01",
+        "Texts": ["Mi padre está en las manos de los dioses, cuidado con lo que dices."]
+    },
+    {
+        "Name": "Amara_06_Full",
+        "Texts": ["Mira, lo de la mandíbula tiene un pase, pero más de 3000 batallas? venga ya.",
+        "También debió tener por lo menos una noche de ¨sexorco salvaje¨ para tenerte a ti..."],
+        "NextPrompts": ["Valarth_06_Crack"]
+    },
+        {
+        "Name": "Valarth_06_Crack",
+        "Texts": ["JAJAJA, me empiezas a caer bien, humana! Estoy sorprendida, haces que me piense lo de matarte.",
+        "No todo lo que se dice de mi padre es cierto, pero tampoco todo lo que se dice de mí..."],
+        "NextPrompts": ["Valarth_Interlude_01_00"],
+        "Tags": ["CrackMask"]
     },
 
     {
-      "Name": "Valarth_05_Open",
-      "Texts": ["Está bien, siéntate que va para largo..."],
-      "NextPrompts": ["Interlude_04"]
+        "Name": "Valarth_Interlude_01_00",
+        "Texts": ["Por cierto, qué ha sido ese ruido? Es como si se hubiera roto algo..."],
+        "NextPrompts": ["Amara_Interlude_01_01"]
+    },
+    {
+        "Name": "Amara_Interlude_01_01",
+        "Texts": ["Olvidate del ruido ese, jeje. Te veo mucho más relajada, guapi.",
+        "Entonces tanto te preocupa lo que se diga de ti?"],
+        "NextPrompts": ["Valarth_Interlude_01_02"]
+    },
+    {
+        "Name": "Valarth_Interlude_01_02",
+        "Texts": [" Son muchas campañas con murmullos, indirectas de los comandantes de rango inferior..."
+        ,"hasta los soldados empiezan a mofarse. Lo quiera o no me está afectando, pero... hay algo que... (Valarth se detiene, sin decir nada más)"],
+        "NextPrompts": ["Amara_07"]
     },
 
     {
-      "Name": "Valarth_05_Object",
-      "Texts": ["APARTA TU BASURA HUMANA DE MI CARA"],
-      "NextPrompts": ["Amara_05"]
+        "Name": "Amara_07",
+        "isChoice":true,
+        "Texts": ["Abrazar","Seguir escuchando","Dar objeto"],
+        "NextPrompts": ["Valarth_07_Crack","Valarth_07_Bad","Valarth_Bad_ObjectAlt"]
+    },
+    {
+        "Name": "Valarth_07_Bad",
+        "Texts": ["(Valarth no dice nada más)"]
+    },
+    {
+        "Name": "Valarth_07_Crack",
+        "Texts": ["(Valarth deja escapar un golpe de aliento de sorpresa, pero pronto se reconforta entre los blandengues brazos de Amara)",
+        "Un abrazo en la cultura orca es visto como una debilidad, pero supongo que puedo hacer una excepción, por lo menos nadie nos ha visto..."],
+        "NextPrompts": ["Amara_08"]
     },
 
     {
-      "Name": "Interlude_04",
-      "Texts": [
-        "¿Un qué?",
-        "UN DRAGON&GABANNA ORIGINAL!!!",
-        "Pero es un D&G auténtico!"
-      ],
-      "NextPrompts": ["Amara_06"]
+        "Name": "Amara_08",
+        "isChoice":true,
+        "Texts": [
+            "Casi lo teníamos, Valarth.. qué ibas a decir antes de abrazarnos?",
+            "Creo que te preocupa demasiado lo que digan los demás.",
+            "¿Y qué pasa si alguien nos ve?",
+            "Dar objeto"
+        ],
+        "NextPrompts": [
+            "Valarth_07_Bad_00",
+            "Valarth_07_Bad_01",
+            "Valarth_08_Good",
+            "Valarth_Bad_ObjectAlt"
+        ]
+    },
+    {
+        "Name": "Valarth_07_Bad_00",
+        "Texts": ["N-no me acuerdo..."]
+    },
+    {
+        "Name": "Valarth_07_Bad_01",
+        "Texts": ["No es cierto..."]
+    },
+    {
+        "Name": "Valarth_08_Good",
+        "Texts": ["Sería mi fin, los rumores serían ciertos, una orca de alto rango siendo amiga de una humana..."],
+        "NextPrompts": ["Amara_09"]
+    },
+    
+    {
+        "Name": "Amara_09",
+        "isChoice":true,
+        "Texts": [
+            "Ajá! Me acabas de llamar AMIGA! Soy LA PUTA AMA DE LA PSICOLOGIA WOOOHOO",
+            "Entonces lo del estofado de oruga era una milonga...",
+            "Creo que nuestro abrazo no es una excepción...",
+            "Dar objeto"
+    ],
+        "NextPrompts": [
+            "Valarth_09_Bad",
+            "Amara_09_Full_00",
+            "Amara_09_Full_01",
+            ""
+        ]
     },
 
     {
-      "Name": "Amara_06",
-      "isChoice": true,
-      "Texts": [
-        "Trae pacá!!! Si tiene algo de valor, lo voy a empeñar",
-        "Pruébatelo reina 💅🏼",
-        "Dar objeto: Túnica dorada"
-      ],
-      "NextPrompts": [
-        "Valarth_06_MaskBreak",
-        "Valarth_06_MaskBreak",
-        "Valarth_06_MaskBreak"
-      ]
+        "Name": "Valarth_09_Bad",
+        "Texts": ["Te has venido muy arriba, ¨guapi¨"]
+    },
+    
+    {
+        "Name": "Amara_09_Full_00",
+        "Texts": ["claramente estás triste por otra cosa, quizá tus soldados tienen razón, quieres saber lo que me han dicho realmente de ti?"],
+        "NextPrompts": ["Valarth_09_Bad_02"]
+    },
+    {
+        "Name": "Valarth_09_Bad_02",
+        "Texts": ["NO! No quiero más rumores!"]
     },
 
     {
-      "Name": "Valarth_06_MaskBreak",
-      "Texts": [
-        "Te mato",
-        "Valarth se quita el harapo que lleva, y con gesto torpe deja caer la máscara"
-      ],
-      "NextPrompts": ["Outro"]
+        "Name": "Amara_09_Full_01",
+        "Texts": ["Creo que hay algo más detrás de todo esto y necesito que me cuentes la verdad para poder ayudarte!"],
+        "NextPrompts": ["Valarth_09_Crack"]
+    },
+    {
+        "Name": "Valarth_09_Crack",
+        "Texts": ["Está bien, siéntate que va para largo..."],
+        "NextPrompts": ["Valarth_Interlude_02_00"]
     },
 
     {
-      "Name": "Outro",
-      "Texts": [
-        "REINA, GUAPA, GUAPA y GUAPA BONITA Y PRECIOSA",
-        "Gracias, elfa, sea como sea que te llames"
-      ],
-      "Tags": ["End"]
+        "Name": "Valarth_Interlude_02_00",
+        "Texts": ["De pequeña hice una amiga humana, como tú. Nos veíamos a escondidas porque por aquel entonces mi padre estaba al mando del clan, y reinaba con puño de hierro.",
+        "Si se llega a enterar de mi amistad con ella, tira a la niña a los huargos para que la devoren y a mí me cuelga de los tobillos una semana.",
+        "Y eso es el castigo suave."],
+        "NextPrompts": ["Amara_Interlude_02_01"]
+    },
+    {
+        "Name": "Amara_Interlude_02_01",
+        "Texts": ["Vaya, de pronto tu padre ya no es el de los triceps épicos"],
+        "NextPrompts": ["Valarth_Interlude_02_02"]
+    },
+    {
+        "Name": "Valarth_Interlude_02_02",
+        "Texts": ["Bíceps. Pero sí, Krushkorr era una figura heroica a ojos de los orcos, pero como padre dejaba mucho que desear.",
+        "Sé que siempre quiso lo mejor para mí, pero a veces eso no era... lo mejor para mí, huh, tiene gracia."],
+        "NextPrompts": ["Amara_Interlude_02_03"]
+    },
+    {
+        "Name": "Amara_Interlude_02_03",
+        "Texts": ["En fin, lo mejor que me llevé de esa amistad es el buen gusto por la ropa y otras costumbres humanas, que son exquisitas por cierto..."],
+        "NextPrompts": ["Amara_10"]
+    },
+
+    {
+        "Name": "Amara_10",
+        "isChoice":true,
+        "Texts": [
+            "Parecen tiempos felices, pese a todo...",
+            "Estás hablando con una elfa, te puedo dar muchos ejemplos de exquisitez...",
+            "Dar objeto"
+        ],
+        "NextPrompts": [
+            "Valarth_10_Bad_00",
+            "Valarth_10_Bad_01",
+            "Valarth_10_Good"
+        ]
+    },
+    {
+        "Name": "Valarth_10_Bad_00",
+        "Texts": ["Sí... (Valarth vuelve a quedarse sin habla, pensando en un pasado que fue mejor)"]
+    },
+    {
+        "Name": "Valarth_10_Bad_01",
+        "Texts": ["Buf, qué soberbia."]
+    },
+    {
+        "Name": "Valarth_10_Good",
+        "Texts": ["DIOS MIO! PERO SI ES UN D&G ORIGINAL!!!"],
+        "NextPrompts": ["Amara_Interlude_04_00"],
+        "Tags":["ConsumeObject"]
+    },
+
+    {
+        "Name": "Amara_Interlude_04_00",
+        "Texts": ["¿Un qué?"],
+        "NextPrompts": ["Valarth_Interlude_04_01"]
+    },
+    {
+        "Name": "Valarth_Interlude_04_01",
+        "Texts": ["UN DRAGON&GABANNA ORIGINAL!!! Pero es que no sabes lo que tienes aqui?"],
+        "NextPrompts": ["Amara_11"]
+    },
+
+    {
+        "Name": "Amara_11",
+        "isChoice":true,
+        "Texts": [
+            "Trae pacá!!! Si tiene algo de valor, lo voy a vender pero ya.",
+            "Pruébatelo reina 💅🏼"
+        ],
+        "NextPrompts": [
+            "Valarth_11_Bad",
+            "Valarth_11_Crack"
+        ]
+    },
+    {
+        "Name": "Valarth_11_Bad",
+        "Texts": ["Te mato"]
+    },
+    {
+        "Name": "Valarth_11_Crack",
+        "Texts": ["(Valarth se quita el harapo que lleva, y con gran destreza se pone el vestido)",
+        "MADRE MIA MADRE MIA, ME QUEDA DIVINO, DI-VI-NO"],
+        "NextPrompts": ["Amara_Outro_00"]
+    },
+
+    {
+        "Name": "Amara_Outro_00",
+        "Texts": ["REINA, GUAPA, GUAPA y GUAPA BONITA Y REINAAAA"],
+        "NextPrompts": ["Valarth_Outro_01"]
+    },
+    {
+        "Name": "Valarth_Outro_01",
+        "Texts": ["Gracias, elfa, sea como sea que te llames, te llevaré siempre en el corazón, dejaré de comandar a los orcos para convertirme en la fashion victim que soy, me merezco mucho más, como por ejemplo unos taconazos de aguja.",
+        "Me voy que tengo compras que hacer, adiós guapa!"],
+        "NextPrompts": [""],
+        "Tags":["End"]
     }
+],
+  "FirstEnemyPhase": [
+    {
+        "Name": "Spinx_00",
+        "Texts": [
+            "A-a-alto ahi, esporia!"
+        ],
+        "NextPrompts": [
+            "Amara_01"
+        ],
+        "Tags":["Start"]
+    },
+    {
+        "Name": "Amara_01",
+        "isChoice":true,
+        "Texts": [
+            "Tranquilo, oye, baja el pincho ese.",
+            "No voy a hacerte daño, chiquitin",
+            "Esporia? No querrás decir ¨escoria?"
+        ],
+        "NextPrompts": [
+            "Spinx_01_Bad_00",
+            "Spinx_01_Good_00",
+            "Spinx_01_Bad_01"
+        ]
+    },
+    {
+        "Name": "Amara_02",
+        "isChoice":true,
+        "Texts": [
+            "¿Por qué hablas asi?",
+            "Vale, bueno, y a qué te dedicas?"
+        ],
+        "NextPrompts": [
+            "Spinx_02_Bad_00",
+            "Spinx_02_Good_00"
+        ]
+    },
+    {
+        "Name": "Amara_03",
+        "isChoice":true,
+        "Texts": [
+            "¿Estás bien?",
+            "Oye, cálmate, que estamos hablando.",
+            "Mencionaste unos calmantes... de qué estamos hablando exactamente?"
+        ],
+        "NextPrompts": [
+            "Spinx_03_Bad_00",
+            "Spinx_03_Bad_01",
+            "Spinx_03_Good_00"
+        ]
+    },
+    {
+        "Name": "Amara_04",
+        "isChoice":true,
+        "Texts": [
+            "Las drogas son malas, chiquitín",
+            "¿Y no te duermes por las... ehem, noches?",
+            "Dar objeto"
+        ],
+        "NextPrompts": [
+            "Spinx_04_Bad_00",
+            "Spinx_04_Bad_01",
+            "Spinx_04_Good_00"
+        ]
+    },
+    {
+        "Name": "Amara_05",
+        "isChoice":true,
+        "Texts": [
+            "Desde cuando necesitas.. tener algo en la boca para estar tranqui?",
+            "Sabes que hay algunas palabras que...",
+            "No sé si unos palitos de regaliz van a curarte, estás bastante pallá."
+        ],
+        "NextPrompts": [
+            "Spinx_05_Bad_00",
+            "Spinx_05_Good_00",
+            "Spinx_05_Bad_01"
+        ]
+    },
+    {
+        "Name": "Amara_06",
+        "isChoice":true,
+        "Texts": [
+            "Se dice ridículo, pero creo que necesitas un relevo, nada más.",
+            "Creo que necesitas ir a un logopeda",
+            "Necesitas dejar de fumar ya."
+        ],
+        "NextPrompts": [
+            "Spinx_06_Good_00",
+            "Spinx_06_Bad_00",
+            "Spinx_06_Bad_01"
+        ]
+    },
+    
+    {
+        "Name": "Spinx_01_Bad_00",
+        "Texts": ["Ni en sueños! Atrás!"]
+    },
+    {
+        "Name": "Spinx_01_Bad_01",
+        "Texts": ["NO ME CORRIJAS !!!!"]
+    },
+    {
+        "Name": "Spinx_01_Good_00",
+        "Texts": ["EH! Para tu información, tengo una astura media, por lo menos para un goblin"],
+        "NextPrompts": ["Amara_02"]
+    },
+
+    {
+        "Name": "Spinx_02_Bad_00",
+        "Texts": ["Hablo como me da la gana!"]
+    },
+    {
+        "Name": "Spinx_02_Good_00",
+        "Texts": ["Hmm, vaya, nunca le habian preguntado eso a este pobre gomlin..."],
+        "NextPrompts": ["Spix_Interlude_00"],
+        "Tags":["CrackMask"]
+    },
+
+    {
+        "Name": "Spix_Interlude_00",
+        "Texts": ["Pues llevo haciendo guardia nocturna más de 14 años, y no tengo más pompañía que mi lanza y mis calmantes!"],
+        "NextPrompts": ["Amara_Interlude_00"]
+    },
+    {
+        "Name": "Amara_Interlude_00",
+        "Texts": ["Espera, y como se supone que sabes cuando es de noche? Estamos en una mazmorra."],
+        "NextPrompts": ["Spix_Interlude_01"]
+    },
+    {
+        "Name": "Spix_Interlude_01",
+        "Texts": ["HHHMM AAAAAAAAHH"],
+        "NextPrompts": ["Amara_03"]
+    },
+
+    {
+        "Name": "Spinx_03_Bad_00",
+        "Texts": ["N-n-nooo, eres mala, mala, mala!"]
+    },
+    {
+        "Name": "Spinx_03_Bad_01",
+        "Texts": ["N-n-nooo, eres mala, mala, mala!"]
+    },
+    {
+        "Name": "Spinx_03_Good_00",
+        "Texts": ["Son unos palitos mágicos que se encienden y se aspiran... y te hacen sentir bieeeeen bien bien durante toda la noche."],
+        "NextPrompts": ["Amara_04"]
+    },
+
+        {
+        "Name": "Spinx_04_Bad_00",
+        "Texts": ["NO SON DROGAS"]
+    },
+    {
+        "Name": "Spinx_04_Bad_01",
+        "Texts": ["NO SE LO DIGAS A LA JEFA!?"]
+    },
+    {
+        "Name": "Spinx_04_Good_00",
+        "Texts": ["No serán mis palitos pero...vaya! podria pasticar esto un rato, supongo"],
+        "NextPrompts": ["Amara_05"],
+        "Tags":["CrackMask"]
+    },
+
+        {
+        "Name": "Spinx_05_Bad_00",
+        "Texts": ["No es de tu intumbencia!"]
+    },
+    {
+        "Name": "Spinx_05_Bad_01",
+        "Texts": ["QUE HAS DICHOOO?!"]
+    },
+    {
+        "Name": "Spinx_05_Good_00",
+        "Texts": ["Si, si, si, lo sé! No germines la frase. Estoy nervioso, vale? Llevo demasiado tiempo montando guardia, aquí solo. Hasta le he puesto nombre a la lanza, soy YIDICULO !!!"],
+        "NextPrompts": ["Amara_06"]
+    },
+
+    {
+        "Name": "Spinx_06_Bad_00",
+        "Texts": ["Logoqué?"]
+    },
+    {
+        "Name": "Spinx_06_Bad_01",
+        "Texts": ["Es muy fácil de decir para una elfa sana!"]
+    },
+    {
+        "Name": "Spinx_06_Good_00",
+        "Texts": ["Ahh... es la primera vez que me corrige alguien y no pierdo los nervios. Eres buena! Ahora mismo voy a hablar con la jefa, me daba miedo pedirle un cambio, porque últimamente está muy rara, más pirascible de lo normal, y como distante y casiturna... Por cierto, te queda algún palito de esos?"],
+        "NextPrompts": ["Amara_Outro_00"],
+        "Tags":["CrackMask"]
+    },
+
+    {
+        "Name": "Amara_Outro_00",
+        "Texts": ["Me temo que ya no tengo más, Spix."],
+        "NextPrompts": ["Spinx_Outro_00"]
+    },
+    {
+        "Name": "Spinx_Outro_00",
+        "Texts": ["Espera, como sabes mi nombre?"],
+        "NextPrompts": ["Amara_Outro_01"]
+    },
+    {
+        "Name": "Amara_Outro_01",
+        "Texts": ["Lo pone aquí, en tu panel de personaje... no lo ves?"],
+        "NextPrompts": ["Spinx_Outro_01"]
+    },
+    {
+        "Name": "Spinx_Outro_01",
+        "Texts": ["HMMMMM AAAAAAAAHH"],
+        "NextPrompts": [""],
+        "Tags":["End"]
+    }
+
+  ],
+  "SecondEnemyPhase": [
+   {
+
+        "Name": "Soldado_00",
+        "Texts": [
+            "Alto a la Guardia Goblin!"
+        ],
+        "NextPrompts": [
+            "Amara_01"
+        ],
+        "Tags":["Start"]
+   },
+   {
+        "Name": "Amara_01",
+        "isChoice":true,
+        "Texts": [
+            "Solo quiero hablar con tu jefa",
+            "Aparta de mi camino.",
+            "¿Por qué todo el mundo me quiere convertir en un pincho moruno?"
+        ],
+        "NextPrompts": [
+            "Soldado_01_Bad_00",
+            "Soldado_01_Bad_01",
+            "Soldado_01_Good_00"
+        ]
+   },
+   {
+        "Name": "Amara_02",
+        "isChoice":true,
+        "Texts": [
+            "Dar un golpe de vara al soldado",
+            "Vaya... ese razonamiento es bastante profundo para un soldado raso."
+        ],
+        "NextPrompts": [
+            "Soldado_02_Bad_00",
+            "Soldado_02_Good_00"
+        ]
+   },
+   {
+        "Name": "Amara_03",
+        "isChoice":true,
+        "Texts": [
+            "Asentir y seguir escuchando",
+            "Claro, eres super especial."
+        ],
+        "NextPrompts": [
+            "Soldado_03_Good_00",
+            "Soldado_03_Bad_00"
+        ]
+   },
+   {
+        "Name": "Amara_04",
+        "isChoice":true,
+        "Texts": [
+            "Los soldados goblin no tienen por qué ser así...",
+            "mirar directamente a los ojos y sonreir"
+        ],
+        "NextPrompts": [
+            "Soldado_04_Bad_00",
+            "Soldado_04_Good_00"
+        ]
+   },
+   {
+        "Name": "Amara_05",
+        "isChoice":true,
+        "Texts": [
+            "Poner la mano sobre el hombro del goblin",
+            "¿Quién es ese soldado?"
+        ],
+        "NextPrompts": [
+            "Soldado_05_Good_00",
+            "Soldado_05_Bad_00"
+        ]
+   },
+    {
+        "Name": "Amara_06",
+        "isChoice":true,
+        "Texts": [
+            "Bastian es tu novio?",
+            "(Abrazar) Suéltalo pequeño, este es un espacio seguro"
+        ],
+        "NextPrompts": [
+            "Soldado_06_Bad_00",
+            "Soldado_06_Good_00"
+        ]
+    },
+
+    {
+        "Name": "Soldado_01_Bad_00",
+        "Texts": ["Vas a necesitar algo más que eso"]
+   },
+   {
+        "Name": "Soldado_01_Bad_01",
+        "Texts": ["El que tiene la espada aqui soy yo..."]
+   },
+   {
+        "Name": "Soldado_01_Good_00",
+        "Texts": ["Será porque vas por ahi con esa superioridad moral..."],
+        "NextPrompts": ["Amara_02"]
+   },
+
+   {
+        "Name": "Soldado_02_Bad_00",
+        "Texts": ["El soldado detiene el golpe con su espada."]
+   },
+   {
+        "Name": "Soldado_02_Good_00",
+        "Texts": ["Tú crees..? Hmm. Sí, siempre he creido que tengo otra sensibilidad..."],
+        "NextPrompts": ["Amara_03"],
+        "Tags":["CrackMask"]
+   },
+
+      {
+        "Name": "Soldado_03_Bad_00",
+        "Texts": ["El soldado se queda callado (...)"]
+   },
+   {
+        "Name": "Soldado_03_Good_00",
+        "Texts": ["Los soldados goblin tenemos que ser despiadados, despojarnos de todo sentimiento hacia el resto..."],
+        "NextPrompts": ["Amara_04"]
+   },
+
+      {
+        "Name": "Soldado_04_Bad_00",
+        "Texts": ["El soldado se queda callado (...)"]
+   },
+   {
+        "Name": "Soldado_04_Good_00",
+        "Texts": ["pero... yo no soy asi, no señor, yo soy distinto al resto, y los brutos de mis compañeros pueden irse a freir raíces de mandrágora...","... Solo hay un soldado que me entiende."],
+        "NextPrompts": ["Amara_05"],
+        "Tags":["CrackMask"]
+   },
+
+    {
+        "Name": "Soldado_05_Bad_00",
+        "Texts": ["El soldado se queda callado (...)"]
+   },
+   {
+        "Name": "Soldado_05_Good_00",
+        "Texts": ["Los ojos del goblin se convierten en una vidriera brillante, humedecida por las lágrimas..."],
+        "NextPrompts": ["Soldado_Interludio_00"]
+   },
+
+    {
+        "Name": "Soldado_Interludio_00",
+        "Texts": ["POR QUÉ? POR QUÉ TODOS EN ESTE CLAN SON TAN BÁRBAROS? Estoy harto, huiré con mi Bastian, él siempre me escucha y me entiende..."," mi querido Bastian..."],
+        "NextPrompts": ["Amara_06"]
+   },
+
+     {
+        "Name": "Soldado_06_Bad_00",
+        "Texts": ["Shht, no hables tan alto idiota!"]
+   },
+   {
+        "Name": "Soldado_06_Good_00",
+        "Texts": ["(Continua sollozando) Dios mio, qué ciego he estado, todo este tiempo, aguantando este estilo de vida, cuando Bastian y yo queríamos lo mismo:"," Una vida tranquila y una casita con vistas al lago junto a Junior, nuestro Yorkshire ."],
+        "NextPrompts": ["Soldado_Outro_00"],
+        "Tags":["CrackMask"]
+   },
+
+    {
+        "Name": "Soldado_Outro_00",
+        "Texts": ["BASTIAN MI AMOOOOOR, COGE A JUNIOR QUE NOS LARGAMOS DE AQUÍ !!!"],
+        "NextPrompts": [""],
+        "Tags":["End"]
+   }
+
+
   ]
 }

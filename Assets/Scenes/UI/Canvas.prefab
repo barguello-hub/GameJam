@@ -121,11 +121,25 @@ MonoBehaviour:
   choiceLayer: {fileID: 7758929138555729644}
   defaultChoice: {fileID: 5233509252455708505, guid: a4bf22691e9d15e459d3810423e383a5, type: 3}
   characterSprite: {fileID: 1889327858989591744}
+  EnemyIndicators: {fileID: 3462637121427443262}
   SpriteList:
   - name: Amara
-    sprite: {fileID: 4644285223472104358, guid: 47917b4b79dad924aa8481e890f1a9bd, type: 3}
+    sprites:
+    - {fileID: 4644285223472104358, guid: 47917b4b79dad924aa8481e890f1a9bd, type: 3}
+    sprite_counter: 0
   - name: Valarth
-    sprite: {fileID: -2837565906379975215, guid: 89c0ec425d0419046a00aa8c888dce2b, type: 3}
+    sprites:
+    - {fileID: -2837565906379975215, guid: 89c0ec425d0419046a00aa8c888dce2b, type: 3}
+    - {fileID: -8599078796837122148, guid: 2bc7f66fc3be94aff9850f88e9fd22ea, type: 3}
+    - {fileID: 4891684473024091137, guid: ee90a761f2ba3a846915322cd914e2cb, type: 3}
+    - {fileID: 3975450434251355362, guid: 658160b948a2ebe438f0a4fbfb0d4c18, type: 3}
+    - {fileID: 3205404018378749393, guid: f3d0d4784b84bbe49b8b4b711b32ae00, type: 3}
+    - {fileID: 6250521534460146229, guid: 74b2f17b48e113e4e81b2796971ce4c1, type: 3}
+    sprite_counter: 0
+  - name: ValarthPortrait
+    sprites:
+    - {fileID: 7372826046756106561, guid: 11172b9e212ff6140b168322a23a810e, type: 3}
+    sprite_counter: 0
   isInDialogue: 0
   currentPhaseName: 
   currentPromptName: 
@@ -140,6 +154,7 @@ MonoBehaviour:
     FinalBossPhase: []
     FirstEnemyPhase: []
     SecondEnemyPhase: []
+  currentCharName: 
 --- !u!1 &954229026538360792
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +328,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -254.3, y: 77.9}
-  m_SizeDelta: {x: 78.29999, y: 36.299988}
+  m_SizeDelta: {x: 90, y: 36.299988}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4610765909643942880
 CanvasRenderer:
@@ -370,7 +385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6620721386139936794
 RectTransform:
   m_ObjectHideFlags: 0
@@ -380,8 +395,8 @@ RectTransform:
   m_GameObject: {fileID: 1437882678251350267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1435631747552891945}
   - {fileID: 4834817009293032657}
@@ -578,7 +593,7 @@ RectTransform:
   m_Father: {fileID: 315225880112374879}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -993,8 +1008,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7423708078942597457}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.2, y: 0}
-  m_AnchorMax: {x: 0.2, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2502,7 +2517,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.000030517578, y: 0}
-  m_SizeDelta: {x: 78.3, y: 31.6}
+  m_SizeDelta: {x: 90, y: 31.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1942095517672313514
 CanvasRenderer:
@@ -3045,7 +3060,7 @@ RectTransform:
   m_Father: {fileID: 1639991659213027563}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3486,7 +3501,7 @@ RectTransform:
   m_Father: {fileID: 8537260435837661834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.2, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

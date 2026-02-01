@@ -15,7 +15,7 @@ public class EnemyPatrolRandom : MonoBehaviour
     [SerializeField] private bool showDetectionRange = true;          // Mostrar círculo de detección
     
     [Header("Battle Settings")]
-    [SerializeField] private string battleSceneName = "FinalBossPhase";  // Nombre de la batalla
+    [SerializeField] private string battleSceneName = "FirstEnemyPhase";  // Nombre de la batalla
     [SerializeField] private bool hasTriggeredBattle = false;         // ¿Ya se activó el combate?
     [SerializeField] private bool stopMovementOnDetection = true;     // Detener movimiento al detectar
     [SerializeField] private bool pelea = false;
@@ -126,7 +126,6 @@ public class EnemyPatrolRandom : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private bool jumpTowardsPlayer = true;
     [SerializeField] private float jumpDuration = 0.3f;
-
     private void OnPlayerDetected()
     {
         if (pelea) {
@@ -153,7 +152,11 @@ public class EnemyPatrolRandom : MonoBehaviour
         // Verificar que el GameManager existe
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.StartBattle(battleSceneName);
+            if(!hasTriggeredBattle && !GameManager.Instance.isInBattle)
+            {
+                hasTriggeredBattle = true;
+                GameManager.Instance.StartBattle(battleSceneName);
+            }
             Debug.Log($"[Enemy] Combate iniciado: {battleSceneName}");
         }
         else
@@ -182,6 +185,7 @@ public class EnemyPatrolRandom : MonoBehaviour
             yield return null;
         }
         
+        jumpTowardsPlayer = false;
         if(pelea) StartBattle();
     }
 

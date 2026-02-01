@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2bc7f66fc3be94aff9850f88e9fd22ea
+guid: 45d97d0a55c98374f89b4d090c7a0041
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8599078796837122148
-    second: Valarth (1)_0
+      213: 4697704989844611496
+    second: ValarthSecondMask (4)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Valarth (1)_0
+      name: ValarthSecondMask (4)_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 0
-        width: 36
-        height: 47
+        x: 857
+        y: 35
+        width: 773
+        height: 1563
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c9f0ee6e46fe9a880800000000000000
-      internalID: -8599078796837122148
+      spriteID: 8a1a44b7cc9913140800000000000000
+      internalID: 4697704989844611496
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Valarth (1)_0: -8599078796837122148
+      ValarthSecondMask (4)_0: 4697704989844611496
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
