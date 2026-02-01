@@ -11,19 +11,30 @@ public class EnemyPatrolRandom : MonoBehaviour
     [SerializeField] private float changeDirectionTime = 2f;
     
     [Header("Detection Settings")]
-    [SerializeField] private float detectionRange = 2f;              // Distancia para activar combate
-    [SerializeField] private bool showDetectionRange = true;          // Mostrar círculo de detección
+    [SerializeField] private float detectionRange = 2f;
+    [SerializeField] private bool showDetectionRange = true;
     
     [Header("Battle Settings")]
-    [SerializeField] private string battleSceneName = "FirstEnemyPhase";  // Nombre de la batalla
-    [SerializeField] private bool hasTriggeredBattle = false;         // ¿Ya se activó el combate?
-    [SerializeField] private bool stopMovementOnDetection = true;     // Detener movimiento al detectar
+    [SerializeField] private string battleSceneName = "FirstEnemyPhase";
+    [SerializeField] private bool hasTriggeredBattle = false;
+    [SerializeField] private bool stopMovementOnDetection = true;
     [SerializeField] private bool pelea = false;
+    
+    [Header("Cooldown Settings")]
+    [SerializeField] private bool canReattackAfterDefeat = true; // ¿Puede volver a atacar si el player pierde?
+    [SerializeField] private float reattackCooldown = 5f; // Tiempo de espera antes de poder atacar de nuevo
+    [SerializeField] private bool showCooldownInGizmos = true;
     
     private Vector2 currentDirection;
     private float directionTimer = 0f;
     private Transform player;
     private bool isPlayerDetected = false;
+    private bool isOnCooldown = false; // ¿Está en cooldown?
+    private float cooldownTimer = 0f;
+    
+    [Header("Animation")]
+    [SerializeField] private bool jumpTowardsPlayer = true;
+    [SerializeField] private float jumpDuration = 0.3f;
     
     private void Start()
     {
@@ -47,11 +58,30 @@ public class EnemyPatrolRandom : MonoBehaviour
     
     private void Update()
     {
+        // Actualizar cooldown
+        if (isOnCooldown)
+        {
+            cooldownTimer -= Time.deltaTime;
+            
+            if (cooldownTimer <= 0f)
+            {
+                // ¡Cooldown terminado!
+                isOnCooldown = false;
+                hasTriggeredBattle = false;
+                isPlayerDetected = false;
+                
+                Debug.Log($"[Enemy] Cooldown terminado. Puede atacar de nuevo.");
+                
+                // Volver a patrullar
+                ChooseRandomDirection();
+            }
+        }
+        
         // Detectar al jugador
         CheckPlayerProximity();
         
-        // No moverse si está detenido o si ya se activó el combate
-        if (isPlayerDetected || hasTriggeredBattle)
+        // No moverse si está detenido, en combate o en cooldown
+        if (isPlayerDetected || hasTriggeredBattle || isOnCooldown)
         {
             return;
         }
@@ -86,7 +116,7 @@ public class EnemyPatrolRandom : MonoBehaviour
     
     private void CheckPlayerProximity()
     {
-        if (player == null || hasTriggeredBattle) return;
+        if (player == null || hasTriggeredBattle || isOnCooldown) return;
         
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         
@@ -100,32 +130,6 @@ public class EnemyPatrolRandom : MonoBehaviour
         }
     }
     
-    /*
-    private void OnPlayerDetected()
-    {
-        isPlayerDetected = true;
-        hasTriggeredBattle = true;
-        
-        Debug.Log($"[Enemy] ¡Jugador detectado! Iniciando batalla: {battleSceneName}");
-        
-        // Detener movimiento
-        if (stopMovementOnDetection)
-        {
-            currentDirection = Vector2.zero;
-        }
-        
-        // Opcional: Mirar hacia el jugador
-        Vector2 direction = player.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
-        
-        // INICIAR EL COMBATE
-        StartBattle();
-    }
-    */
-    [Header("Animation")]
-    [SerializeField] private bool jumpTowardsPlayer = true;
-    [SerializeField] private float jumpDuration = 0.3f;
     private void OnPlayerDetected()
     {
         if (pelea) {
@@ -144,7 +148,6 @@ public class EnemyPatrolRandom : MonoBehaviour
         {
             StartBattle();
         }      
-        
     }
     
     private void StartBattle()
@@ -155,7 +158,7 @@ public class EnemyPatrolRandom : MonoBehaviour
             if(!hasTriggeredBattle && !GameManager.Instance.isInBattle)
             {
                 hasTriggeredBattle = true;
-                GameManager.Instance.StartBattle(battleSceneName);
+                GameManager.Instance.StartBattle(battleSceneName, gameObject);
             }
             Debug.Log($"[Enemy] Combate iniciado: {battleSceneName}");
         }
@@ -188,7 +191,55 @@ public class EnemyPatrolRandom : MonoBehaviour
         jumpTowardsPlayer = false;
         if(pelea) StartBattle();
     }
-
+    
+    /// <summary>
+    /// Llamar desde GameManager cuando la batalla termina y el player PIERDE
+    /// </summary>
+    public void OnPlayerDefeated()
+    {
+        if (!canReattackAfterDefeat)
+        {
+            Debug.Log($"[Enemy] Player derrotado, pero este enemigo NO puede volver a atacar.");
+            return; // No puede volver a atacar
+        }
+        
+        Debug.Log($"[Enemy] Player derrotado. Iniciando cooldown de {reattackCooldown} segundos.");
+        
+        // Iniciar cooldown
+        isOnCooldown = true;
+        cooldownTimer = reattackCooldown;
+    }
+    
+    /// <summary>
+    /// Llamar desde GameManager cuando la batalla termina y el player GANA
+    /// </summary>
+    public void OnPlayerVictory()
+    {
+        Debug.Log($"[Enemy] Player ganó la batalla. Enemigo desactivado permanentemente.");
+        
+        // Desactivar completamente el enemigo
+        hasTriggeredBattle = true;
+        isOnCooldown = false;
+        
+        // Opcional: Destruir o desactivar el GameObject
+        // gameObject.SetActive(false);
+        // Destroy(gameObject);
+    }
+    
+    /// <summary>
+    /// Resetear manualmente el estado del enemigo (útil para testing)
+    /// </summary>
+    public void ResetEnemyState()
+    {
+        hasTriggeredBattle = false;
+        isPlayerDetected = false;
+        isOnCooldown = false;
+        cooldownTimer = 0f;
+        
+        ChooseRandomDirection();
+        
+        Debug.Log($"[Enemy] Estado reseteado manualmente.");
+    }
     
     private void ChooseRandomDirection()
     {
@@ -213,10 +264,23 @@ public class EnemyPatrolRandom : MonoBehaviour
         Gizmos.DrawLine(topRight, topLeft);
         Gizmos.DrawLine(topLeft, bottomLeft);
         
-        // Rango de detección (rojo)
+        // Rango de detección
         if (showDetectionRange)
         {
-            Gizmos.color = Color.red;
+            // Rojo si está en cooldown, amarillo si puede atacar
+            if (Application.isPlaying && isOnCooldown && showCooldownInGizmos)
+            {
+                Gizmos.color = Color.blue; // Azul = en cooldown
+            }
+            else if (Application.isPlaying && hasTriggeredBattle)
+            {
+                Gizmos.color = Color.gray; // Gris = ya atacó
+            }
+            else
+            {
+                Gizmos.color = Color.red; // Rojo = listo para atacar
+            }
+            
             Gizmos.DrawWireSphere(transform.position, detectionRange);
         }
     }

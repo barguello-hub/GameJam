@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 using System.Numerics;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class InventoryPair
@@ -44,6 +45,26 @@ public class GameManager : MonoBehaviour
     public Sprite endTherapyTitle;
     public Sprite failTherapyTitle;
 
+    private PlayerKnockback playerKnockback;
+
+    [Header("Battle System")]    
+    private GameObject currentEnemy;
+
+    [Header("Health Settings")]    
+    [SerializeField] private int maxHealth = 100;    
+    private int currentHealth;        
+    [Header("Respawn Settings")]    
+    [SerializeField] private Transform initialSpawnPoint; // Punto de spawn en R00 
+    [SerializeField] private GameObject initialRoom;
+
+    [Header("Camera Settings")]    
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private UnityEngine.Vector3 initialCameraPosition; // Posición de cámara en R00    
+    
+    [SerializeField] private bool autoDetectCameraPosition = true; // Detectar automáticamente    
+
+    [SerializeField] private PlayerSpawnAnimation playerSpawnAnimation;
+
     public static GameManager Instance { get; private set; }
 
     void Awake()
@@ -56,6 +77,8 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        currentHealth = maxHealth;
 
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = idle_music;
@@ -82,6 +105,53 @@ public class GameManager : MonoBehaviour
         BattleTitleImage.SetActive(false);
         //DEBUG
         // StartBattle("FinalBossPhase");
+
+        // Buscar el PlayerKnockback        
+        //GameObject player = GameObject.FindGameObjectWithTag("Player");        
+        if (Player != null)        
+        {            
+            playerKnockback = Player.GetComponent<PlayerKnockback>();        
+        }
+        if (playerSpawnAnimation == null && Player != null)        
+        {            
+            playerSpawnAnimation = Player.GetComponent<PlayerSpawnAnimation>();        
+        }
+
+        // Buscar R00 automáticamente si no está asignado        
+        if (initialRoom == null)        
+        {            
+            initialRoom = GameObject.Find("R00");                        
+            if (initialRoom == null)            
+            {                
+                Debug.LogWarning("[GameManager] No se encontró la room 'R00'. Asígnala manualmente.");            
+            }       
+        }                
+        // Buscar spawn point en R00 si no está asignado        
+        if (initialSpawnPoint == null && initialRoom != null)        
+        {            
+            // Buscar un objeto hijo llamado "SpawnPoint" o similar            
+            Transform spawnChild = initialRoom.transform.Find("SpawnPoint");                        
+            if (spawnChild != null)            
+            {                
+                initialSpawnPoint = spawnChild;            
+            }            else            {                
+                // Si no existe, usar el centro de R00                
+                initialSpawnPoint = initialRoom.transform;                
+                Debug.Log("[GameManager] Usando posición de R00 como spawn point");            
+            }        
+        }
+
+        if (mainCamera == null)        
+        {            
+            mainCamera = Camera.main;        
+        }
+        //  Detectar posición inicial de cámara automáticamente        
+        if (autoDetectCameraPosition && mainCamera != null)        
+        {            
+            // Guardar la posición de la cámara al inicio (debería estar en R00)            
+            initialCameraPosition = mainCamera.transform.position;            
+            Debug.Log($"[GameManager] Posición inicial de cámara guardada: {initialCameraPosition}");        
+        }
     }
 
     public void WrongChoice()
@@ -90,6 +160,36 @@ public class GameManager : MonoBehaviour
         currentAmaraDetermination-=1;
         CheckEndBattle();
         UpdateUI();
+    }
+
+    /// <summary>    
+    /// Llamar cuando el player muere    
+    /// </summary>    
+    private void OnPlayerDeath()    
+    {       
+        Debug.Log("[GameManager] ¡Player ha muerto!");                
+        // Restaurar vida completa        
+        currentAmaraDetermination = InitialAmaraDetermination;   
+        
+        isInBattle = false;                
+        //  NOTIFICAR AL ENEMIGO QUE GANÓ        
+        if (currentEnemy != null)        
+        {            
+            EnemyPatrolRandom enemyScript = currentEnemy.GetComponent<EnemyPatrolRandom>();            
+            if (enemyScript != null)            
+            {                
+                enemyScript.OnPlayerDefeated(); // ¡Iniciar cooldown!            
+            }        
+        }                
+        currentEnemy = null;
+        
+        if(currentAmaraDetermination > 0){
+            UnityEngine.Vector2 enemyPos = currentEnemy.transform.position;
+            playerKnockback.ApplyKnockback(enemyPos);  
+        } else {
+            // Cargar Room0_0 y reproducir animación        
+            StartCoroutine(RespawnPlayerCoroutine()); 
+        }
     }
 
     public bool HasObjects()
@@ -102,6 +202,43 @@ public class GameManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private System.Collections.IEnumerator RespawnPlayerCoroutine()    
+    {        
+        // Fade out o efecto de transición aquí (opcional)        
+        yield return new WaitForSeconds(1f);                
+        // Cargar escena Room0_0        
+        //MOVER LA CÁMARA A R00        
+        if (mainCamera != null)        
+        {            
+            mainCamera.transform.position = initialCameraPosition;            
+            Debug.Log($"[GameManager] Cámara movida a: {initialCameraPosition}");        
+        }
+        //SceneManager.LoadScene(room0_0SceneName);                
+        // Esperar a que cargue la escena        
+        yield return new WaitForSeconds(0.1f);                
+        // Buscar referencias nuevamente (la escena cambió)       
+        //player = GameObject.FindGameObjectWithTag("Player");                
+        if (Player != null)        
+        {            
+            playerSpawnAnimation = Player.GetComponent<PlayerSpawnAnimation>();                        
+            if (playerSpawnAnimation != null)            
+            {                
+                playerSpawnAnimation.PlaySpawnAnimation();            
+            }        
+        }    
+    }
+
+    public int GetCurrentHealth()    
+    {        
+        return currentHealth;    
+    }
+
+    public void Heal(int amount)    
+    {        
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);        
+        Debug.Log($"[GameManager] Player curado. Vida: {currentHealth}/{maxHealth}");    
     }
 
     public string GetRelevantObject()
@@ -142,8 +279,30 @@ public class GameManager : MonoBehaviour
         return available_objects[0];
     }
 
-    public void StartBattle(string PhaseName)
-    {
+    /// <summary>    
+    /// Llamar cuando la batalla termina y el PLAYER GANA    
+    /// </summary>    
+    public void OnBattleWon()    
+    {        
+        Debug.Log("[GameManager] ¡Player ganó la batalla!");                
+        isInBattle = false;                
+        // Notificar al enemigo que perdió        
+        if (currentEnemy != null)        
+        {            
+            EnemyPatrolRandom enemyScript = currentEnemy.GetComponent<EnemyPatrolRandom>();            
+            if (enemyScript != null)            
+            {                
+                enemyScript.OnPlayerVictory();            
+            }        
+        }                
+        currentEnemy = null;    
+    }
+
+    public void StartBattle(string PhaseName, GameObject enemy) {
+
+        currentEnemy = enemy; // ← GUARDAR REFERENCIA        
+        Debug.Log($"[GameManager] Iniciando batalla con: {enemy.name}");
+
         if(isInBattle == true) return;
         dialogueManager.isInDialogue = true;
         dialogueManager.currentPhaseName = PhaseName;
@@ -227,8 +386,25 @@ public class GameManager : MonoBehaviour
         {
             if(currentAmaraDetermination <= 0 || currentEnemyAnger >= 3)
             {
-                
-                EndBattle();
+                isInBattle = false;
+                Player.GetComponent<PlayerMovement>().moveSpeed = 3.0f;
+                EndDialogue();
+
+                UnityEngine.Vector2 enemyPos = currentEnemy.transform.position;
+                //playerKnockback.ApplyKnockback(enemyPos);  
+
+                if(currentAmaraDetermination <= 0) OnPlayerDeath();  
+
+                Debug.Log("[GameManager] Player derrotado por enemigo en: " + 2);              
+                // Aplicar knockback        
+                if (playerKnockback != null)        
+                {        
+                    OnPlayerDeath();
+                    //playerKnockback.ApplyKnockbackBackward();     
+                    //playerKnockback.ApplyKnockback(enemyPos);
+                } else {            
+                    Debug.LogWarning("[GameManager] PlayerKnockback no encontrado!");        
+                }
             }
         }
     }

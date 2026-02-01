@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] public float moveSpeed = 5f;
+    [SerializeField] public bool enabled = true;
     
     [Header("References")]
     [SerializeField] private Animator animator;

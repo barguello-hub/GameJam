@@ -18,7 +18,7 @@ public class Store : MonoBehaviour
         if(!has_entered_store)
         {
             has_entered_store = true;
-            GameManager.Instance.StartBattle("StorePhase");
+            GameManager.Instance.StartBattle("StorePhase", gameObject);
         }
     }
 }
