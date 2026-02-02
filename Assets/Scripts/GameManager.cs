@@ -109,11 +109,10 @@ public class GameManager : MonoBehaviour
         initial_pos = dialogueLayer.GetComponent<RectTransform>().anchoredPosition;
 
         BattleTitleImage.SetActive(false);
-        //DEBUG
-        // StartBattle("FinalBossPhase");
 
-        // Buscar el PlayerKnockback        
-        //GameObject player = GameObject.FindGameObjectWithTag("Player");        
+        audioSource.volume = 1.0f;
+        sfxSource.volume = 0.7f;
+
         if (Player != null)        
         {            
             playerKnockback = Player.GetComponent<PlayerKnockback>();        
@@ -176,26 +175,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("[GameManager] ¡Player ha muerto!");                
         // Restaurar vida completa        
         currentAmaraDetermination = InitialAmaraDetermination;   
-        
-        isInBattle = false;                
-        //  NOTIFICAR AL ENEMIGO QUE GANÓ        
-        if (currentEnemy != null)        
-        {            
-            EnemyPatrolRandom enemyScript = currentEnemy.GetComponent<EnemyPatrolRandom>();            
-            if (enemyScript != null)            
-            {                
-                enemyScript.OnPlayerDefeated(); // ¡Iniciar cooldown!            
-            }        
-        }                
+        IntroBackground.GetComponent<Image>().sprite = IntroSprites[3];
+                                   
+        // Cargar Room0_0 y reproducir animación        
+        StartCoroutine(RespawnPlayerCoroutine()); 
         currentEnemy = null;
-        
-        if(currentAmaraDetermination > 0){
-            UnityEngine.Vector2 enemyPos = currentEnemy.transform.position;
-            playerKnockback.ApplyKnockback(enemyPos);  
-        } else {
-            // Cargar Room0_0 y reproducir animación        
-            StartCoroutine(RespawnPlayerCoroutine()); 
-        }
     }
 
     public bool HasObjects()
@@ -213,7 +197,7 @@ public class GameManager : MonoBehaviour
     private System.Collections.IEnumerator RespawnPlayerCoroutine()    
     {        
         // Fade out o efecto de transición aquí (opcional)        
-        yield return new WaitForSeconds(1f);                
+        // yield return new WaitForSeconds(1f);                
         // Cargar escena Room0_0        
         //MOVER LA CÁMARA A R00        
         if (mainCamera != null)        
@@ -223,7 +207,16 @@ public class GameManager : MonoBehaviour
         }
         //SceneManager.LoadScene(room0_0SceneName);                
         // Esperar a que cargue la escena        
-        yield return new WaitForSeconds(0.1f);                
+        yield return new WaitForSeconds(0.1f);
+
+        if (Player != null)        
+        {            
+            playerSpawnAnimation = Player.GetComponent<PlayerSpawnAnimation>();                        
+            if (playerSpawnAnimation != null)            
+            {                
+                playerSpawnAnimation.PlaySpawnAnimation();            
+            }        
+        }                
         // Buscar referencias nuevamente (la escena cambió)       
         //player = GameObject.FindGameObjectWithTag("Player");                  
     }
@@ -302,6 +295,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"[GameManager] Iniciando batalla con: {enemy.name}");
 
         if(isInBattle == true) return;
+        dialogueManager.ResetSpriteCounters();
         dialogueManager.isInDialogue = true;
         dialogueManager.currentPhaseName = PhaseName;
         dialogueManager.currentPrompt = null;
@@ -367,6 +361,8 @@ public class GameManager : MonoBehaviour
             AmaraIndicators.transform.GetChild(1).GetComponent<Slider>().value = currentAmaraDetermination;
             EnemyIndicators.transform.GetChild(1).GetComponent<Slider>().value = currentEnemyAnger;
             AmaraIndicators.transform.GetChild(2).GetComponent<Image>().sprite = AmaraMoodSprites[Mathf.Max(currentAmaraDetermination-1, 0)];
+            InventoryLayer.transform.GetChild(0).gameObject.SetActive(false);
+            InventoryLayer.transform.GetChild(2).gameObject.SetActive(false);
         }
         else
         {
@@ -398,22 +394,30 @@ public class GameManager : MonoBehaviour
             {
                 isInBattle = false;
                 Player.GetComponent<PlayerMovement>().moveSpeed = 3.0f;
-                EndDialogue();
+                EndBattle();
+                //  NOTIFICAR AL ENEMIGO QUE GANÓ        
+                if (currentEnemy != null)        
+                {            
+                    EnemyPatrolRandom enemyScript = currentEnemy.GetComponent<EnemyPatrolRandom>();            
+                    if (enemyScript != null)            
+                    {                
+                        enemyScript.OnPlayerDefeated(); // ¡Iniciar cooldown!            
+                    }        
+                } 
 
-                UnityEngine.Vector2 enemyPos = currentEnemy.transform.position;
-                //playerKnockback.ApplyKnockback(enemyPos);  
-
-                if(currentAmaraDetermination <= 0) OnPlayerDeath();  
-
-                Debug.Log("[GameManager] Player derrotado por enemigo en: " + 2);              
-                // Aplicar knockback        
-                if (playerKnockback != null)        
-                {        
-                    OnPlayerDeath();
-                    //playerKnockback.ApplyKnockbackBackward();     
-                    //playerKnockback.ApplyKnockback(enemyPos);
-                } else {            
-                    Debug.LogWarning("[GameManager] PlayerKnockback no encontrado!");        
+                if(currentAmaraDetermination <= 0)
+                {
+                    if (playerKnockback != null)        
+                    {        
+                        OnPlayerDeath();
+                    } else {            
+                        Debug.LogWarning("[GameManager] PlayerKnockback no encontrado!");        
+                    }
+                    Debug.Log("[GameManager] Player derrotado por enemigo en: " + 2);
+                }
+                else
+                {
+                    if (playerKnockback != null) playerKnockback.ApplyKnockback(currentEnemy.transform.position);    
                 }
             }
         }
@@ -426,7 +430,7 @@ public class GameManager : MonoBehaviour
         EndDialogue();
         UpdateUI();
 
-        if(dialogueManager.currentPhaseName == "SecondEnemyPhase")
+        if(!(currentAmaraDetermination <= 0 || currentEnemyAnger >= 3) && dialogueManager.currentPhaseName == "SecondEnemyPhase")
         {
             PickUpObject("Blusa Roja");
             RemoveObject("Palito de Regaliz");
@@ -438,10 +442,19 @@ public class GameManager : MonoBehaviour
             RemoveObject("Oro");
         }
 
+        if(currentAmaraDetermination <= 0 || currentEnemyAnger >= 3)
+        {  
+            BattleTitleImage.GetComponent<Image>().sprite = failTherapyTitle;
+        }
+        else
+        {
+            BattleTitleImage.GetComponent<Image>().sprite = endTherapyTitle;
+        }
+        BattleTitleImage.SetActive(true);
+
         audioSource.clip = idle_music;
         audioSource.loop = true;
         audioSource.Play();
-        BattleTitleImage.SetActive(true);
         anim_end_finished = false;
         acc_time = 0.0f;
 
@@ -584,14 +597,6 @@ public class GameManager : MonoBehaviour
                 if(dialogueManager.currentPhaseName == "IntroPhase")
                 {
                     BattleTitleImage.GetComponent<Image>().sprite = IntroSprites[3];
-                }
-                else if(currentAmaraDetermination <= 0 || currentEnemyAnger >= 3)
-                {  
-                    BattleTitleImage.GetComponent<Image>().sprite = failTherapyTitle;
-                }
-                else
-                {
-                    BattleTitleImage.GetComponent<Image>().sprite = endTherapyTitle;
                 }
 
                 acc_time+=Time.deltaTime;

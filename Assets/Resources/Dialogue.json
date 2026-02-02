@@ -398,12 +398,8 @@
     {
         "Name": "Valarth_Interlude_02_02",
         "Texts": ["Bíceps. Pero sí, Krushkorr era una figura heroica a ojos de los orcos, pero como padre dejaba mucho que desear.",
-        "Sé que siempre quiso lo mejor para mí, pero a veces eso no era... lo mejor para mí, huh, tiene gracia."],
-        "NextPrompts": ["Amara_Interlude_02_03"]
-    },
-    {
-        "Name": "Amara_Interlude_02_03",
-        "Texts": ["En fin, lo mejor que me llevé de esa amistad es el buen gusto por la ropa y otras costumbres humanas, que son exquisitas por cierto..."],
+        "Sé que siempre quiso lo mejor para mí, pero a veces eso no era... lo mejor para mí, huh, tiene gracia.",
+        "En fin, lo mejor que me llevé de esa amistad es el buen gusto por la ropa y otras costumbres humanas, que son exquisitas por cierto..."],
         "NextPrompts": ["Amara_10"]
     },
 
@@ -904,19 +900,19 @@
     {
         "Name":"Arquero_01",
         "Texts":["Aquí necesitamos fuerza, no palabras, elfa."],
-        "NextPrompts":["???_01"]
+        "NextPrompts":["????_01"]
         ,"Tags":["Scream"]
     },
     {
-        "Name":"???_01",
+        "Name":"????_01",
         "Texts":["Amara no lanza hechizos.",
                 "Solo ve lo que otros prefieren no mirar."],
-        "NextPrompts":["???_01_00"]
+        "NextPrompts":["????_01_00"]
         
 
     },
     {
-        "Name":"???_01_00",
+        "Name":"????_01_00",
         "Texts":["Exiliada de su grupo, Amara despierta en otra parte de la mazmorra."],
         "NextPrompts":["Amara_00"]
         ,"Tags":["ChangeScreen"]
@@ -925,11 +921,11 @@
     {
         "Name":"Amara_00",
         "Texts":["Siempre pasa lo mismo…","Cuando las cosas se rompen por dentro, nadie quiere hacerse cargo."],
-        "NextPrompts":["???_02"]
+        "NextPrompts":["????_02"]
         
     },
     {
-        "Name":"???_02",
+        "Name":"????_02",
         "Texts":["Las criaturas de esta mazmorra no son solo colmillos y garras.",
                     "Todos tienen su máscara."],
         "NextPrompts":["Amara_01"]
@@ -939,15 +935,14 @@
         "Name":"Amara_01",
         "Texts":["Si no puedo luchar…"
         ,"entonces haré que se vean a sí mismos."],
-        "NextPrompts":["???_03"],
-        "Tags":["ChangeScreen"]
+        "NextPrompts":["????_03"]
     },
     {
-        "Name":"???_03",
+        "Name":"????_03",
         "Texts":["TERAPIAS Y MAZMORRAS",
         "Rompe máscaras. Cura lo invisible."],
         "NextPrompts":[""],
-        "Tags":["End"]
+        "Tags":["ChangeScreen", "End"]
     }
   ]
 }

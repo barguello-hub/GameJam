@@ -3,7 +3,7 @@ using UnityEngine;
 public class Chest : MonoBehaviour
 {
     [Header("Chest Settings")]
-    [SerializeField] private string itemName = "Vestido Rojo";
+    [SerializeField] private string itemName = "Ratafía";
     [SerializeField] private bool isOpened = false;
     
     [Header("Interaction Settings")]

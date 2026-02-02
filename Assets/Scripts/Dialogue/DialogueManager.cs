@@ -70,6 +70,8 @@ public class DialogueManager : MonoBehaviour
     public Phases Phases;
 
     public string currentCharName;
+    public AudioSource sfxSource;
+    public AudioClip DialogueBlipSfx;
 
     void LoadJson()
     {
@@ -100,7 +102,7 @@ public class DialogueManager : MonoBehaviour
             Phases.FinalBossDict.Add(prompt.Name, prompt);
         }
 
-        UnityEngine.Debug.Log($"Boss Dictionary built with {Phases.FinalBossDict.Count} prompts");
+        // UnityEngine.Debug.Log($"Boss Dictionary built with {Phases.FinalBossDict.Count} prompts");
 
         Phases.FirstEnemyDict = new Dictionary<string, DialoguePrompt>();
         foreach (var prompt in Phases.FirstEnemyPhase)
@@ -116,7 +118,7 @@ public class DialogueManager : MonoBehaviour
             Phases.FirstEnemyDict.Add(prompt.Name, prompt);
         }
 
-        UnityEngine.Debug.Log($"First Enemy Dictionary built with {Phases.FirstEnemyDict.Count} prompts");
+        // UnityEngine.Debug.Log($"First Enemy Dictionary built with {Phases.FirstEnemyDict.Count} prompts");
 
         Phases.SecondEnemyDict = new Dictionary<string, DialoguePrompt>();
         foreach (var prompt in Phases.SecondEnemyPhase)
@@ -132,7 +134,7 @@ public class DialogueManager : MonoBehaviour
             Phases.SecondEnemyDict.Add(prompt.Name, prompt);
         }
 
-        UnityEngine.Debug.Log($"Second Enemy Dictionary built with {Phases.SecondEnemyDict.Count} prompts");
+        // UnityEngine.Debug.Log($"Second Enemy Dictionary built with {Phases.SecondEnemyDict.Count} prompts");
 
         Phases.StoreDict = new Dictionary<string, DialoguePrompt>();
         foreach (var prompt in Phases.StorePhase)
@@ -148,7 +150,7 @@ public class DialogueManager : MonoBehaviour
             Phases.StoreDict.Add(prompt.Name, prompt);
         }
 
-        UnityEngine.Debug.Log($"Second Enemy Dictionary built with {Phases.StoreDict.Count} prompts");
+        // UnityEngine.Debug.Log($"Second Enemy Dictionary built with {Phases.StoreDict.Count} prompts");
 
         Phases.IntroDict = new Dictionary<string, DialoguePrompt>();
         foreach (var prompt in Phases.IntroPhase)
@@ -164,7 +166,7 @@ public class DialogueManager : MonoBehaviour
             Phases.IntroDict.Add(prompt.Name, prompt);
         }
 
-        UnityEngine.Debug.Log($"Second Enemy Dictionary built with {Phases.IntroDict.Count} prompts");
+        // UnityEngine.Debug.Log($"Second Enemy Dictionary built with {Phases.IntroDict.Count} prompts");
     }
     
     public void UpdateDialogueVariables(string PhaseName)
@@ -231,6 +233,9 @@ public class DialogueManager : MonoBehaviour
             choice.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
         }
         dialogueLayer.SetActive(false);
+        dialogueLayer.transform.parent.GetComponent<Image>().raycastTarget = !currentPrompt.isChoice;
+
+
         // inventoryLayer.SetActive(false);
         // inventoryLayer.transform.GetChild(1).gameObject.SetActive(false);
         // Transform[] children = inventoryLayer.transform.GetChild(0).GetComponentsInChildren<Transform>(true);
@@ -261,6 +266,13 @@ public class DialogueManager : MonoBehaviour
             {
                 pair.sprite_counter += 1;
             }
+        }
+    }
+    public void ResetSpriteCounters()
+    {
+        foreach(SpritePair pair in SpriteList)
+        {
+            pair.sprite_counter = 0;
         }
     }
 
@@ -297,7 +309,7 @@ public class DialogueManager : MonoBehaviour
                 SpawnedChoices[i].SetActive(true);
                 
                 string choice_next_prompt_name = currentPrompt.NextPrompts[i];
-                UnityEngine.Debug.Log($"Setting button for prompt: {choice_next_prompt_name}");
+                // UnityEngine.Debug.Log($"Setting button for prompt: {choice_next_prompt_name}");
                 
                 SpawnedChoices[i].GetComponent<Button>().onClick.RemoveAllListeners();
                 SpawnedChoices[i].GetComponent<Button>().onClick.AddListener(
@@ -313,7 +325,10 @@ public class DialogueManager : MonoBehaviour
             if(currentPrompt.Texts.Count >= currentPromptBreak+1)
             {
                 typingCoroutine = StartCoroutine(MakeTextAppear(currentPrompt.Texts[currentPromptBreak]));
-                // dialogue_text.text = currentPrompt.Texts[currentPromptBreak];
+                if (currentPrompt.Tags.Contains("Start"))
+                {
+                    SkipAppearingText();
+                }
                 currentPromptBreak+=1; 
                 
                 //set name for character
@@ -329,7 +344,7 @@ public class DialogueManager : MonoBehaviour
                 else
                 {
                     characterSprite.SetActive(false);
-                    UnityEngine.Debug.Log($"The char sprite for {currentCharName} wasn't found!");
+                    // UnityEngine.Debug.Log($"The char sprite for {currentCharName} wasn't found!");
                 }
 
                 if(currentPhaseName == "IntroPhase")
@@ -345,7 +360,7 @@ public class DialogueManager : MonoBehaviour
                 }
                 else
                 {
-                    UnityEngine.Debug.Log($"The char sprite for {currentCharName} wasn't found!");
+                    // UnityEngine.Debug.Log($"The char sprite for {currentCharName} wasn't found!");
                 }
                 
             }
@@ -376,7 +391,7 @@ public class DialogueManager : MonoBehaviour
                     currentPromptBreak = 0;
                     currentPrompt = currentPhaseDictionary[NextPromptNameOverride];
                     currentPromptName = currentPrompt.Name;
-                    UnityEngine.Debug.Log($"Moving to key {NextPromptNameOverride} prompt");
+                    // UnityEngine.Debug.Log($"Moving to key {NextPromptNameOverride} prompt");
 
                     if (currentPrompt.Tags.Contains("CrackMask"))
                     {
@@ -397,7 +412,7 @@ public class DialogueManager : MonoBehaviour
                     currentPromptBreak = 0;
                     currentPrompt = currentPhaseDictionary[currentPrompt.NextPrompts[0]];
                     currentPromptName = currentPrompt.Name;
-                    UnityEngine.Debug.Log($"Moving to key {currentPrompt.NextPrompts[0]} prompt");
+                    // UnityEngine.Debug.Log($"Moving to key {currentPrompt.NextPrompts[0]} prompt");
                     if(currentPrompt.Tags.Contains("CrackMask")) AdvanceSpriteCounter(currentPromptName.Split('_')[0]);
 
                     if (currentPrompt.Tags.Contains("Scream")) GameManager.Instance.ReproduceSound("Scream");
@@ -411,7 +426,7 @@ public class DialogueManager : MonoBehaviour
                 }
                 else
                 {
-                    UnityEngine.Debug.Log($"The key {currentPrompt.NextPrompts[0]} wasn't found! in dictionary");
+                    // UnityEngine.Debug.Log($"The key {currentPrompt.NextPrompts[0]} wasn't found! in dictionary");
 
                     foreach(string tag in currentPrompt.Tags)
                     {
@@ -481,11 +496,11 @@ public class DialogueManager : MonoBehaviour
                 tmp_text.textInfo.characterCount;
                 yield break;
             }
-
+            sfxSource.PlayOneShot(DialogueBlipSfx);
             tmp_text.maxVisibleCharacters+=1;
             yield return new WaitForSeconds(charDelay);
         }
-        skip_text = true;
+        skip_text = false;
     }
 
     public void SkipAppearingText()
