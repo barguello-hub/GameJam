@@ -500,7 +500,7 @@ public class DialogueManager : MonoBehaviour
             tmp_text.maxVisibleCharacters+=1;
             yield return new WaitForSeconds(charDelay);
         }
-        skip_text = false;
+        skip_text = true;
     }
 
     public void SkipAppearingText()

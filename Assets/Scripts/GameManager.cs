@@ -328,6 +328,11 @@ public class GameManager : MonoBehaviour
     {   
         InventoryLayer.transform.GetChild(0).gameObject.SetActive(!InventoryLayer.transform.GetChild(0).gameObject.activeSelf);
         InventoryLayer.transform.GetChild(2).gameObject.SetActive(!InventoryLayer.transform.GetChild(2).gameObject.activeSelf);
+        UpdateInventory();
+    }
+
+    public void UpdateInventory()
+    {
         Transform[] children = InventoryLayer.transform.GetChild(1).GetComponentsInChildren<Transform>(true);
         int i = 0;
         foreach (Transform child in InventoryLayer.transform.GetChild(2))
@@ -487,6 +492,7 @@ public class GameManager : MonoBehaviour
             if(string.Equals(object_name, pair.name, System.StringComparison.OrdinalIgnoreCase))
             {
                 pair.count += 1;
+                UpdateInventory();
                 return;
             }
         }

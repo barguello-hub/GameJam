@@ -198,7 +198,8 @@
         "Name": "Amara_Interlude_00_00",
         "Texts": ["Venga, Valarth, vengo de hablar con tus dos secuaces y los dos han sucumbido a mis encantos \"psicologiles\".",
         "Hasta he conseguido que uno salga del armario.",
-        "Todo lo que me cuentas parece agotador, y monotema... ¿no hay nada en tu vida fuera de la guerra, el campamento, y el mando orco?"],
+        "Todo lo que me cuentas parece agotador, y monotema...",
+        "¿No hay nada en tu vida fuera de la guerra, el campamento, y el mando orco?"],
         "NextPrompts": ["Valarth_Interlude_00_01"]
     },
 
@@ -230,7 +231,7 @@
     {
         "Name": "Valarth_05_Good",
         "Texts": ["No es solo mi padre, es el legendario Koronel Krusshkor, vencedor de mas de 3000 batallas, conquistador de pueblos, de épicos biceps,",
-        "de durísima y cuadrada mandibula, de voz imponente como un troll, ah! y me olvido de...",
+        "de durísima y cuadrada mandíbula, de voz imponente como un troll, ah! y me olvido de...",
         "(Valarth está ensimismada hablando y dando todo tipo de detalles de Krusshkor)"],
         "NextPrompts": ["Amara_06"]
     },
@@ -262,7 +263,7 @@
     {
         "Name": "Amara_06_Full",
         "Texts": ["Mira, lo de la mandíbula tiene un pase, pero más de 3000 batallas? venga ya.",
-        "También debió tener por lo menos una noche de ¨sexorco salvaje¨ para tenerte a ti..."],
+        "También debió tener por lo menos una noche de \"sexorco salvaje\" para tenerte a ti..."],
         "NextPrompts": ["Valarth_06_Crack"]
     },
         {
@@ -344,7 +345,7 @@
         "Name": "Amara_09",
         "isChoice":true,
         "Texts": [
-            "Ajá! Me acabas de llamar AMIGA! Soy LA PUTA AMA DE LA PSICOLOGIA WOOOHOO",
+            "Ajá! Me acabas de llamar AMIGA! Soy LA PUTA AMA DE LA PSICOLOGÍA WOOOHOO",
             "Entonces lo del estofado de oruga era una milonga...",
             "Creo que nuestro abrazo no es una excepción...",
             "Dar objeto"
@@ -359,7 +360,7 @@
 
     {
         "Name": "Valarth_09_Bad",
-        "Texts": ["Te has venido muy arriba, ¨guapi¨"]
+        "Texts": ["Te has venido muy arriba, \"guapi\""]
     },
     
     {
@@ -440,7 +441,7 @@
     },
     {
         "Name": "Valarth_Interlude_04_01",
-        "Texts": ["UN DRAGON&GABANNA ORIGINAL!!! Pero es que no sabes lo que tienes aqui?"],
+        "Texts": ["UN DRAGON&GABANNA ORIGINAL!!! Pero es que no sabes lo que tienes aquí?"],
         "NextPrompts": ["Amara_11"]
     },
 
@@ -475,12 +476,14 @@
     },
     {
         "Name": "Valarth_Outro_01",
-        "Texts": ["Gracias, elfa, sea como sea que te llames, te llevaré siempre en el corazón, dejaré de comandar a los orcos para convertirme en la fashion victim que soy, me merezco mucho más, como por ejemplo unos taconazos de aguja.",
+        "Texts": ["Gracias, elfa, sea como sea que te llames, te llevaré siempre en el corazón.",
+        "Dejaré de comandar a los orcos para convertirme en la fashion victim que soy, me merezco mucho más, como por ejemplo unos taconazos de aguja.",
         "Me voy que tengo compras que hacer, adiós guapa!"],
         "NextPrompts": [""],
         "Tags":["End"]
     }
-],
+  ],
+
   "FirstEnemyPhase": [
     {
         "Name": "Spix_00",
@@ -497,8 +500,8 @@
         "isChoice":true,
         "Texts": [
             "Tranquilo, oye, baja el pincho ese.",
-            "No voy a hacerte daño, chiquitin",
-            "Esporia? No querrás decir ¨escoria?"
+            "No voy a hacerte daño, chiquitín",
+            "Esporia? No querrás decir \"escoria\"?"
         ],
         "NextPrompts": [
             "Spix_01_Bad_00",
@@ -700,6 +703,7 @@
     }
 
   ],
+
   "SecondEnemyPhase": [
    {
 
@@ -755,7 +759,7 @@
         "isChoice":true,
         "Texts": [
             "Los Gubbinzs goblin no tienen por qué ser así...",
-            "mirar directamente a los ojos y sonreir"
+            "(Mirar directamente a los ojos y sonreír)"
         ],
         "NextPrompts": [
             "Gubbinz_04_Bad_00",
@@ -828,7 +832,7 @@
    },
    {
         "Name": "Gubbinz_04_Good_00",
-        "Texts": ["pero... yo no soy asi, no señor, yo soy distinto al resto, y los brutos de mis compañeros pueden irse a freir raíces de mandrágora...","... Solo hay un Gubbinz que me entiende."],
+        "Texts": ["Pero... yo no soy asi, no señor, yo soy distinto al resto, y los brutos de mis compañeros pueden irse a freir raíces de mandrágora...","... Solo hay un Gubbinz que me entiende."],
         "NextPrompts": ["Amara_05"],
         "Tags":["CrackMask"]
    },
@@ -845,7 +849,7 @@
 
     {
         "Name": "Gubbinz_Interludio_00",
-        "Texts": ["POR QUÉ? POR QUÉ TODOS EN ESTE CLAN SON TAN BÁRBAROS? Estoy harto, huiré con mi Bastian, él siempre me escucha y me entiende..."," mi querido Bastian..."],
+        "Texts": ["POR QUÉ? POR QUÉ TODOS EN ESTE CLAN SON TAN BÁRBAROS? Estoy harto, huiré con mi Bastian, él siempre me escucha y me entiende...","Mi querido Bastian..."],
         "NextPrompts": ["Amara_06"]
    },
 
@@ -855,20 +859,21 @@
    },
    {
         "Name": "Gubbinz_06_Good_00",
-        "Texts": ["(Continua sollozando) Dios mio, qué ciego he estado, todo este tiempo, aguantando este estilo de vida, cuando Bastian y yo queríamos lo mismo:"," Una vida tranquila y una casita con vistas al lago junto a Junior, nuestro Yorkshire ."],
+        "Texts": ["(Continua sollozando) Dios mio, qué ciego he estado, todo este tiempo, aguantando este estilo de vida, cuando Bastian y yo queríamos lo mismo..."," Una vida tranquila y una casita con vistas al lago junto a Junior, nuestro Yorkshire."],
         "NextPrompts": ["Gubbinz_Outro_00"],
         "Tags":["BreakMask"]
    },
 
     {
         "Name": "Gubbinz_Outro_00",
-        "Texts": ["BASTIAN MI AMOOOOOR, COGE A JUNIOR QUE NOS LARGAMOS DE AQUÍ !!!","Ah, por cierto, a la jefa se le cayó esto el otro dia...","(Recibes una bonita blusa. Parece de calidad)"],
+        "Texts": ["BASTIAN MI AMOOOOOOOOR, COGE A JUNIOR QUE NOS LARGAMOS DE AQUÍ!!!","Ah, por cierto, a la jefa se le cayó esto el otro dia...","(Recibes una bonita blusa. Parece de calidad)"],
         "NextPrompts": [""],
         "Tags":["End"]
    }
 
 
   ],
+
   "StorePhase": [
     {
         "Name": "Mochi_00",
