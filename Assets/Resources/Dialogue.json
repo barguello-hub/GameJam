@@ -84,7 +84,7 @@
       "Name": "Amara_03",
       "isChoice": true,
       "Texts": [
-        "Tus Gubbinzs empiezan a rumorear sobre ti .......",
+        "Tus Gubbinzs empiezan a rumorear sobre ti ...",
         "¡Oye! No soy ninguna enclenque... Solo tengo huesos pequeños",
         "¿Cómo que no? Dame una grapadora ahora mismo que te la lanzo",
         "Dar objeto"
@@ -132,7 +132,7 @@
       "Name": "Amara_04",
       "isChoice": true,
       "Texts": [
-        "Dicen que estás muy alicaída, distante, solitaria, melancólica... y los sinónimos siguen de aquí al corazón de la mazmorra, querida.",
+        "Dicen que estás muy alicaída, distante, solitaria, melancólica...",
         "Dicen que te huelen los pies a queso de Gnoll.",
         "Dicen que te estás volviendo blanda, que dudas...",
         "Dar objeto"
@@ -230,8 +230,8 @@
 
     {
         "Name": "Valarth_05_Good",
-        "Texts": ["No es solo mi padre, es el legendario Koronel Krusshkor, vencedor de mas de 3000 batallas, conquistador de pueblos, de épicos biceps,",
-        "de durísima y cuadrada mandíbula, de voz imponente como un troll, ah! y me olvido de...",
+        "Texts": ["No es solo mi padre, es el legendario Koronel Krusshkor, vencedor de mas de 3000 batallas, conquistador de pueblos, de épicos biceps...",
+        "De durísima y cuadrada mandíbula, de voz imponente como un troll, ah! y me olvido de...",
         "(Valarth está ensimismada hablando y dando todo tipo de detalles de Krusshkor)"],
         "NextPrompts": ["Amara_06"]
     },
@@ -393,13 +393,13 @@
     },
     {
         "Name": "Amara_Interlude_02_01",
-        "Texts": ["Vaya, de pronto tu padre ya no es el de los triceps épicos"],
+        "Texts": ["Vaya, de pronto tu padre ya no es el de los triceps épicos."],
         "NextPrompts": ["Valarth_Interlude_02_02"]
     },
     {
         "Name": "Valarth_Interlude_02_02",
         "Texts": ["Bíceps. Pero sí, Krushkorr era una figura heroica a ojos de los orcos, pero como padre dejaba mucho que desear.",
-        "Sé que siempre quiso lo mejor para mí, pero a veces eso no era... lo mejor para mí, huh, tiene gracia.",
+        "Sé que siempre quiso lo mejor para mí, pero a veces eso no era... Lo mejor para mí, huh, tiene gracia.",
         "En fin, lo mejor que me llevé de esa amistad es el buen gusto por la ropa y otras costumbres humanas, que son exquisitas por cierto..."],
         "NextPrompts": ["Amara_10"]
     },
@@ -471,7 +471,7 @@
 
     {
         "Name": "Amara_Outro_00",
-        "Texts": ["REINA, GUAPA, GUAPA y GUAPA BONITA Y REINAAAA"],
+        "Texts": ["¡¡¡ REINA, GUAPA, GUAPA y GUAPA BONITA Y REINAAAA !!!"],
         "NextPrompts": ["Valarth_Outro_01"]
     },
     {

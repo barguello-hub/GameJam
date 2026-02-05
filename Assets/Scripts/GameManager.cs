@@ -438,6 +438,10 @@ public class GameManager : MonoBehaviour
         if(!(currentAmaraDetermination <= 0 || currentEnemyAnger >= 3) && dialogueManager.currentPhaseName == "SecondEnemyPhase")
         {
             PickUpObject("Blusa Roja");
+        }
+
+        if(!(currentAmaraDetermination <= 0 || currentEnemyAnger >= 3) && dialogueManager.currentPhaseName == "FirstEnemyPhase")
+        {
             RemoveObject("Palito de Regaliz");
         }
 
@@ -476,6 +480,12 @@ public class GameManager : MonoBehaviour
                     playerSpawnAnimation.PlaySpawnAnimation();            
                 }        
             }  
+        }
+
+        if(dialogueManager.currentPhaseName == "FinalBossPhase" && !(currentAmaraDetermination <= 0 || currentEnemyAnger >= 3))
+        {
+           BattleTitleImage.GetComponent<Image>().sprite = IntroSprites[3];
+           Application.Quit();
         }
     }
 

@@ -1576,10 +1576,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"Has obtenido: Vestido Rojo"'
+  m_text: "\"Has obtenido: Rataf\xEDa\""
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: edbd5128d74a77b44935e2a811d07bf5, type: 2}
+  m_sharedMaterial: {fileID: -1097102749573905178, guid: edbd5128d74a77b44935e2a811d07bf5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15592,15 +15592,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5927659860595897660, guid: 09edd793195484d848167dc98f62d4c8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5927659860595897660, guid: 09edd793195484d848167dc98f62d4c8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5927659860595897660, guid: 09edd793195484d848167dc98f62d4c8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5927659860595897660, guid: 09edd793195484d848167dc98f62d4c8, type: 3}
       propertyPath: m_LocalPosition.x

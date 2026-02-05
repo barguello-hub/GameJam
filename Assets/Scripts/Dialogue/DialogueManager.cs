@@ -412,8 +412,19 @@ public class DialogueManager : MonoBehaviour
                     currentPromptBreak = 0;
                     currentPrompt = currentPhaseDictionary[currentPrompt.NextPrompts[0]];
                     currentPromptName = currentPrompt.Name;
-                    // UnityEngine.Debug.Log($"Moving to key {currentPrompt.NextPrompts[0]} prompt");
-                    if(currentPrompt.Tags.Contains("CrackMask")) AdvanceSpriteCounter(currentPromptName.Split('_')[0]);
+                    if (currentPrompt.Tags.Contains("CrackMask"))
+                    {
+                        GameManager.Instance.ReproduceSound("MaskBreaking");
+                        AdvanceSpriteCounter(currentPromptName.Split('_')[0]);    
+                    }
+                    else if (currentPrompt.Tags.Contains("BreakMask"))
+                    {
+                        GameManager.Instance.ReproduceSound("MaskBroken");
+                        GameManager.Instance.currentEnemyAnger = 0;
+                        GameManager.Instance.currentAmaraDetermination = GameManager.Instance.InitialAmaraDetermination;
+                        GameManager.Instance.UpdateUI();
+                        AdvanceSpriteCounter(currentPromptName.Split('_')[0]);    
+                    }
 
                     if (currentPrompt.Tags.Contains("Scream")) GameManager.Instance.ReproduceSound("Scream");
 
